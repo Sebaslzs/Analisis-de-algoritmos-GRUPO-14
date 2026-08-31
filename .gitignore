@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Documentos internos del grupo (no se suben al repo)
+CONTEXTO.md
+Examen 1 – Análisis de Algoritmos (1).pdf
