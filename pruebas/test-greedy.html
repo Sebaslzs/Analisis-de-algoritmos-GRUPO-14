@@ -1,0 +1,240 @@
+<!-- Dueño: Sebastián -->
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pruebas — greedy.js (Sebastián)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --pass: #22c55e;
+      --fail: #ef4444;
+      --accent: #38bdf8;
+      --border: #334155;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .summary-box {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      flex: 1;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .stat-pass {
+      color: var(--pass);
+    }
+
+    .stat-fail {
+      color: var(--fail);
+    }
+
+    .test-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .test-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .test-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .test-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .badge-pass {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--pass);
+    }
+
+    .badge-fail {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--fail);
+    }
+
+    .test-details {
+      color: var(--muted);
+      font-family: monospace;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.75rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Pruebas Unitarias — algoritmos/greedy.js</h1>
+    <p class="subtitle">Suite de verificación de corrección y casos borde (Sebastián)</p>
+
+    <div class="summary-box">
+      <div class="stat-card">
+        <div>Pruebas Ejecutadas</div>
+        <div class="stat-number" id="total-tests">0</div>
+      </div>
+      <div class="stat-card">
+        <div>Exitosas</div>
+        <div class="stat-number stat-pass" id="pass-tests">0</div>
+      </div>
+      <div class="stat-card">
+        <div>Fallidas</div>
+        <div class="stat-number stat-fail" id="fail-tests">0</div>
+      </div>
+    </div>
+
+    <div id="test-results" class="test-list"></div>
+  </div>
+
+  <script src="../src/algoritmos/greedy.js"></script>
+  <script>
+    let total = 0;
+    let passed = 0;
+    let failed = 0;
+
+    const resultsContainer = document.getElementById('test-results');
+
+    function assert(name, condition, details = '') {
+      total++;
+      const isPass = Boolean(condition);
+      if (isPass) passed++; else failed++;
+
+      const item = document.createElement('div');
+      item.className = 'test-item';
+      item.innerHTML = `
+        <div class="test-header">
+          <span class="test-title">${name}</span>
+          <span class="badge ${isPass ? 'badge-pass' : 'badge-fail'}">${isPass ? 'PASS' : 'FAIL'}</span>
+        </div>
+        ${details ? `<div class="test-details">${details}</div>` : ''}
+      `;
+      resultsContainer.appendChild(item);
+    }
+
+    // Suite de Pruebas
+    try {
+      // 1. Conversión de horas
+      assert('convertirAHoraDecimal - Número directo', convertirAHoraDecimal(8.5) === 8.5, '8.5 -> 8.5');
+      assert('convertirAHoraDecimal - String "08:30"', convertirAHoraDecimal('08:30') === 8.5, '"08:30" -> 8.5');
+      assert('convertirAHoraDecimal - String "14:15"', convertirAHoraDecimal('14:15') === 14.25, '"14:15" -> 14.25');
+
+      // 2. Variante A — Selección de Intervalos (1 Consultorio)
+      const listaVacia = [];
+      const resVaciaA = seleccionIntervalos(listaVacia);
+      assert('Variante A - Lista Vacía', resVaciaA.totalAceptadas === 0 && resVaciaA.aceptadas.length === 0, 'Respuesta vacía correcta');
+
+      const casoUnico = [{ id: 1, inicio: 8, fin: 10, profesional: 'Dr. Pérez' }];
+      const resUnicoA = seleccionIntervalos(casoUnico);
+      assert('Variante A - Un Solo Elemento', resUnicoA.totalAceptadas === 1, 'Acepta la única solicitud');
+
+      // Intervalos que se tocan justo en el borde: [8, 9] y [9, 10] (Compatibles)
+      const casoTocandose = [
+        { id: 1, horaInicio: '08:00', horaFin: '09:00' },
+        { id: 2, horaInicio: '09:00', horaFin: '10:00' }
+      ];
+      const resTocandose = seleccionIntervalos(casoTocandose);
+      assert('Variante A - Intervalos Adyacentes (Tocándose en el borde)', resTocandose.totalAceptadas === 2, 'Acepta ambas solicitudes [8-9] y [9-10]');
+
+      // Intervalos anidados: [8, 12] y [9, 10] -> El óptimo voraz debe tomar [9, 10]
+      const casoAnidado = [
+        { id: 'largo', inicio: 8, fin: 12 },
+        { id: 'corto', inicio: 9, fin: 10 }
+      ];
+      const resAnidado = seleccionIntervalos(casoAnidado);
+      assert('Variante A - Intervalos Anidados (Prioriza fin más temprano)', resAnidado.totalAceptadas === 1 && resAnidado.aceptadas[0].id === 'corto', 'Prefiere [9-10] sobre [8-12]');
+
+      // 3. Variante B — Particionamiento de Intervalos (Minimizar Consultorios)
+      const resVaciaB = particionamiento([]);
+      assert('Variante B - Lista Vacía', resVaciaB.totalConsultorios === 0, '0 consultorios para lista vacía');
+
+      // 3 solicitudes totalmente superpuestas: [9, 11], [9.5, 10.5], [10, 12]
+      const casoSuperpuesto = [
+        { id: 1, inicio: 9, fin: 11 },
+        { id: 2, inicio: 9.5, fin: 10.5 },
+        { id: 3, inicio: 10, fin: 12 }
+      ];
+      const resSuperpuesto = particionamiento(casoSuperpuesto);
+      assert('Variante B - Profundidad Máxima = 3 Consultorios', resSuperpuesto.totalConsultorios === 3 && resSuperpuesto.profundidadMaxima === 3, 'Asigna exactamente 3 consultorios');
+
+      // Secuenciales no solapadas -> Debería reusar 1 solo consultorio
+      const casoSecuencial = [
+        { id: 1, inicio: 8, fin: 9 },
+        { id: 2, inicio: 9, fin: 10 },
+        { id: 3, inicio: 10, fin: 11 }
+      ];
+      const resSecuencial = particionamiento(casoSecuencial);
+      assert('Variante B - Reutilización de Consultorio Único', resSecuencial.totalConsultorios === 1, 'Reutiliza el mismo consultorio para las 3 citas');
+
+    } catch (err) {
+      assert('Error de Ejecución en Pruebas', false, err.message);
+    }
+
+    // Actualizar contadores
+    document.getElementById('total-tests').textContent = total;
+    document.getElementById('pass-tests').textContent = passed;
+    document.getElementById('fail-tests').textContent = failed;
+  </script>
+</body>
+
+</html>
