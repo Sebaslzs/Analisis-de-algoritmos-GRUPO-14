@@ -1,158 +1,89 @@
-# Analisis-de-algoritmos-GRUPO-14
+# Asignación Óptima de Consultorios — Algoritmo Greedy
 
 **Examen 1 — Análisis de Algoritmos · ITM**
 **Integrantes:** Sebastián · Brayan · Miguel · Emanuel
-**Entrega:** miércoles 2 de septiembre de 2026
-
-## Descripción del problema
-
-*(Emanuel)*
-
-Una E.S.E. recibe cada día una lista de solicitudes de uso de consultorio (profesional, servicio, hora de inicio y hora de fin). Hoy la coordinación las asigna a ojo. El proyecto responde dos preguntas:
-
-1. Si solo hay **un consultorio libre**, ¿qué subconjunto de solicitudes permite atender la **mayor cantidad** de ellas?
-2. Para atender **todas** las solicitudes del día, ¿cuál es el **mínimo número de consultorios** necesario?
-
-## Solución propuesta
-
-*(Sebastián)*
-
-Para resolver los dos requerimientos de la E.S.E., se aplican dos enfoques basados en la técnica de **Algoritmos Voraces (Greedy)**:
-
-1. **Pregunta 1 — Maximización en 1 consultorio libre (Variante A - Selección de Intervalos):**
-   - **Objetivo:** Atender el mayor número posible de citas en un único consultorio disponible sin solapamientos.
-   - **Estrategia Greedy:** Priorizar siempre la solicitud cuya hora de finalización sea la más temprana entre las compatibles.
-   - **Salida:** Un subconjunto óptimo de solicitudes aceptadas y la lista de solicitudes rechazadas.
-
-2. **Pregunta 2 — Minimización de consultorios para atender todas las solicitudes (Variante B - Particionamiento de Intervalos):**
-   - **Objetivo:** Asignar **todas** las solicitudes del día utilizando la menor cantidad de consultorios requerida.
-   - **Estrategia Greedy:** Procesar las solicitudes ordenadas por hora de inicio ascendente. Asignar la solicitud al primer consultorio existente que esté libre en ese momento. Si todos están ocupados, habilitar un nuevo consultorio.
-   - **Salida:** Un listado de consultorios creados con las solicitudes asignadas a cada uno y el número mínimo total de consultorios necesarios.
-
-Ambos algoritmos garantizan respuestas **óptimas globales** mediante decisiones **locales voraces**, con una complejidad temporal eficiente de \(\mathcal{O}(n \log n)\).
 
 ---
 
-## Explicación del algoritmo
+## ¿Qué es este proyecto?
 
-*(Sebastián)*
+Aplicación web que resuelve dos problemas reales de asignación de consultorios para una E.S.E. (Empresa Social del Estado), utilizando **Algoritmos Voraces (Greedy)**:
 
-### 1. Variante A — Selección de Intervalos (Interval Scheduling)
+| Variante | Pregunta | Resultado |
+|----------|----------|-----------|
+| **A — Selección de Intervalos** | Si solo hay **1 consultorio libre**, ¿cuál es el máximo de citas que se pueden atender sin solapamiento? | Subconjunto óptimo de solicitudes aceptadas y rechazadas |
+| **B — Particionamiento de Intervalos** | Para atender **todas** las solicitudes, ¿cuántos consultorios se necesitan como mínimo? | Distribución de citas en N consultorios con grilla visual |
 
-#### Descripción y Pseudocódigo
-Dado un conjunto de \(n\) solicitudes \(S = \{s_1, s_2, \dots, s_n\}\) donde cada solicitud tiene hora de inicio \(inicio(s_i)\) y hora de fin \(fin(s_i)\):
+Además incluye una tercera vista, **Comparación de criterios**, que ejecuta la Variante A con los tres criterios de ordenamiento posibles (hora de fin, hora de inicio y duración) para evidenciar cuál es el óptimo y por qué.
 
-```text
-Algoritmo SeleccionIntervalos(solicitudes):
-    1. Ordenar solicitudes por fin(s) ascendente.
-    2. aceptadas ← []
-    3. ultimaHoraFin ← -infinity
-    4. Para cada s en solicitudes ordenadas:
-           Si inicio(s) >= ultimaHoraFin:
-               Agregar s a aceptadas
-               ultimaHoraFin ← fin(s)
-    5. Retornar aceptadas
+Las solicitudes **se editan desde la propia interfaz**: el conjunto de 15 citas de `src/datos/solicitudes.js` es solo el punto de partida, no un resultado fijo. Todo se recalcula al vuelo con los datos que cargues.
+
+---
+
+## Cómo probarlo
+
+### Requisitos previos
+- Un navegador web moderno (Chrome, Firefox, Edge).
+- Un servidor local para servir archivos con soporte de ES Modules.
+
+### Opción 1 — VS Code con Live Server (recomendada)
+1. Abre la carpeta del proyecto en VS Code.
+2. Instala la extensión **Live Server** si no la tienes.
+3. Clic derecho sobre `index.html` → **Open with Live Server**.
+
+### Opción 2 — Servidor con Python
+```bash
+# En la raíz del proyecto:
+python -m http.server 8000
+# Luego abre http://localhost:8000 en el navegador
 ```
 
-#### Análisis de Complejidad
-- **Tiempo:** Ordenamiento \(\mathcal{O}(n \log n)\) + Recorrido voraz lineal \(\mathcal{O}(n)\) = \(\mathcal{O}(n \log n)\).
-- **Espacio:** \(\mathcal{O}(n)\) para almacenar el subconjunto de respuesta.
-
-#### Demostración de Optimalidad (Argumento de Intercambio / *Greedy Stays Ahead*)
-**Teorema:** El conjunto de solicitudes seleccionadas por el algoritmo voraz \(G = \{g_1, g_2, \dots, g_k\}\) tiene el tamaño máximo posible.
-
-**Demostración (por inducción):**
-Sea \(O = \{o_1, o_2, \dots, o_m\}\) una solución óptima cualquiera ordenada por hora de finalización. Debemos probar que \(k = m\).
-
-Demostraremos por inducción que para todo \(i \le k\), la hora de finalización del \(i\)-ésimo elemento voraz es menor o igual a la del \(i\)-ésimo elemento óptimo:
-\[
-fin(g_i) \le fin(o_i)
-\]
-
-1. **Caso base (\(i = 1\)):**
-   El algoritmo voraz elige \(g_1\) con la hora de finalización más temprana de todo el conjunto. Por lo tanto, \(fin(g_1) \le fin(o_1)\).
-
-2. **Paso inductivo:**
-   Asumimos que para \(i = r - 1\), se cumple \(fin(g_{r-1}) \le fin(o_{r-1})\).
-   Dado que \(o_r\) es compatible con \(o_{r-1}\) en la solución óptima:
-   \[
-   inicio(o_r) \ge fin(o_{r-1}) \ge fin(g_{r-1})
-   \]
-   Esto implica que \(o_r\) es una solicitud válida disponible para ser elegida por el algoritmo voraz en el paso \(r\). Como el algoritmo voraz selecciona el intervalo disponible con la menor hora de finalización:
-   \[
-   fin(g_r) \le fin(o_r)
-   \]
-
-3. **Conclusión:**
-   Si existiera un elemento \(o_{k+1}\) en la solución óptima, por el paso inductivo tendríamos \(inicio(o_{k+1}) \ge fin(o_k) \ge fin(g_k)\). Esto significaría que \(o_{k+1}\) habría sido elegible por el algoritmo voraz después de \(g_k\), contradiciendo que el algoritmo se detuvo en \(g_k\). Por lo tanto, \(k = m\) y la solución voraz es óptima. \(\blacksquare\)
-
----
-
-### 2. Variante B — Particionamiento de Intervalos (Interval Partitioning)
-
-#### Descripción y Pseudocódigo
-Dado el conjunto de solicitudes \(S\), queremos asignarlas a la menor cantidad de consultorios posible:
-
-```text
-Algoritmo ParticionamientoIntervalos(solicitudes):
-    1. Ordenar solicitudes por inicio(s) ascendente.
-    2. consultorios ← []  // Lista de consultorios
-    3. Para cada s en solicitudes ordenadas:
-           asignado ← Falso
-           Para cada c en consultorios:
-               Si c.ultimaHoraFin <= inicio(s):
-                   Agregar s a c
-                   c.ultimaHoraFin ← fin(s)
-                   asignado ← Verdadero
-                   Romper ciclo
-           Si no asignado:
-               Crear nuevo consultorio c_nuevo con s
-               c_nuevo.ultimaHoraFin ← fin(s)
-               Agregar c_nuevo a consultorios
-    4. Retornar consultorios
+### Opción 3 — Servidor con Node.js
+```bash
+npx serve .
 ```
 
-#### Análisis de Complejidad
-- **Tiempo:** Ordenamiento \(\mathcal{O}(n \log n)\) + Búsqueda/Asignación \(\mathcal{O}(n \cdot d)\) donde \(d\) es el número de consultorios.
-- **Espacio:** \(\mathcal{O}(n)\) para la distribución de consultorios.
-
-#### Demostración de Optimalidad (Cota Inferior por Profundidad Máxima \(d\))
-**Definición (Profundidad):** La *profundidad* \(d\) de un conjunto de intervalos es el número máximo de intervalos mutuamente traslapados en cualquier punto del tiempo.
-
-**Teorema:** El número de consultorios utilizado por el algoritmo voraz es exactamente igual a la profundidad máxima \(d\), la cual representa una cota inferior insuperable para cualquier solución válida.
-
-**Demostración:**
-1. **Cota Inferior:** Si en un instante determinado del tiempo hay \(d\) solicitudes superpuestas entre sí, se requieren **al menos** \(d\) consultorios independientes para atenderlas simultáneamente. Por lo tanto, cualquier solución requiere \(\text{Consultorios} \ge d\).
-2. **Cota del Voraz:** Supongamos que el algoritmo voraz abre un nuevo consultorio \(d'\). Esto ocurre al procesar una solicitud \(s_k\) porque **todos** los \(d' - 1\) consultorios existentes ya estaban ocupados por solicitudes cuyo inicio era \(\le inicio(s_k)\) y cuya finalización es \(> inicio(s_k)\).
-3. Por ende, en el momento \(inicio(s_k)\), existen exactamente \(d'\) solicitudes superpuestas simultáneamente (las \(d'-1\) anteriores más \(s_k\)).
-4. Esto implica que la profundidad del conjunto de datos es al menos \(d'\) (\(d \ge d'\)).
-5. Puesto que el total de consultorios asignados por el algoritmo voraz no excede la profundidad máxima \(d\) (\(d' \le d\)) y ninguna solución puede usar menos de \(d\), el algoritmo voraz usa exactamente \(d\) consultorios y es **estrictamente óptimo**. \(\blacksquare\)
+> **Nota:** Abrir `index.html` directamente como archivo (`file://`) **no funcionará** porque el proyecto usa ES Modules (`import`/`export`), que requieren un servidor HTTP.
 
 ---
 
-## Grilla hora × consultorio
+## Uso de la aplicación
 
-*(Miguel)*
+### Cargar los datos de entrada
 
-La visualización está implementada en [`src/ui/grilla.js`](src/ui/grilla.js) y [`src/ui/grilla.css`](src/ui/grilla.css). `renderizarGrilla(contenedor, resultado)` acepta tanto la salida de `seleccionIntervalos` como la de `particionamiento`: reconoce solicitudes con `inicio`/`fin` o `horaInicio`/`horaFin`, y consultorios representados como arreglos o como objetos con la propiedad `solicitudes`.
+Al abrir `index.html` aparece arriba el panel **Datos de entrada** con las 15 solicitudes de ejemplo. Desde ahí puedes:
 
-La demo autónoma se abre directamente en el navegador desde [`demos/demo-grilla.html`](demos/demo-grilla.html). Presenta tres criterios lado a lado, la jornada de 07:00 a 18:00 en bloques de 30 minutos, solicitudes aceptadas en color y rechazadas en gris.
+- **Agregar** una solicitud: ID (se propone el siguiente libre), servicio, profesional (opcional), hora de inicio y hora de fin.
+- **Eliminar** cualquier solicitud con el botón ✕ de su fila.
+- **Restaurar ejemplo** para volver al conjunto original, o **Vaciar** para empezar de cero.
 
-### Prueba realizada
+El formulario valida que la hora de fin sea posterior a la de inicio, que el ID no esté repetido y que el servicio no quede vacío. Si cargas una cita fuera del horario 07:00–18:00 se agrega igual —los algoritmos la tienen en cuenta— pero avisa que la grilla de la Variante B no la dibujará, porque esa vista solo cubre la jornada.
 
-Se verificó la integración cargando `greedy.js` con solicitudes reales y enviando el resultado de `particionamiento` a la grilla. El resultado esperado es una columna por consultorio, todos los intervalos visibles y ningún error de JavaScript. También se verificó la demo independiente y la vista responsive en navegador.
+Cualquier cambio en los datos recalcula de inmediato la vista que estés viendo.
 
-## Trabajo futuro
+### Ejecutar los algoritmos
 
-*(Miguel)*
+1. **"Variante A (1 Consultorio)"** — Selección de Intervalos:
+   - Se mostrarán tres paneles: Pendientes, Aceptadas (✅) y Rechazadas (❌).
+   - Arriba se indica cuántas citas se aceptaron y cuántas se rechazaron.
+2. **"Variante B (N Consultorios)"** — Particionamiento de Intervalos:
+   - Se dibuja una grilla visual hora × consultorio (07:00–18:00, bloques de 30 min).
+   - Cada columna representa un consultorio y cada bloque de color es una cita asignada.
+   - Arriba se indica el total de consultorios requeridos y la profundidad máxima.
+3. **"Comparar criterios"** — tabla con los tres criterios de ordenamiento:
+   - Cuántas citas atiende cada uno y qué solicitudes acepta.
+   - Con el conjunto de ejemplo el resultado es **8 / 7 / 6**: ordenar por hora de fin atiende 8 citas, por hora de inicio 7 y por duración 6. Solo el primero garantiza el máximo para *cualquier* entrada.
 
-La grilla mantiene la jornada fija definida por el contrato. Quedan fuera de alcance las recurrencias, las vistas semana/mes/año, los filtros por entidad, la autenticación y la persistencia en base de datos.
+---
 
-## Link al video
+## Pruebas
 
-*(Sebastián)*
-
-[Ver video explicativo del proyecto en YouTube / Loom](https://youtube.com) *(Pendiente de grabación final por el equipo)*.
+| Archivo | Qué prueba | Cómo abrirlo |
+|---------|------------|---------------|
+| [`pruebas/test-greedy.html`](pruebas/test-greedy.html) | Conversión de horas, selección de intervalos, particionamiento, casos borde | Abrir con Live Server |
+| [`pruebas/test-ordenamiento.html`](pruebas/test-ordenamiento.html) | MergeSort propio y comparación de 3 criterios greedy | Abrir con Live Server |
+| [`demos/demo-grilla.html`](demos/demo-grilla.html) | Visualización independiente de la grilla con datos de prueba | Abrir con Live Server |
+| [`demos/demo-paneles.html`](demos/demo-paneles.html) | Paneles de solicitudes pendientes/aceptadas/rechazadas | Abrir con Live Server |
 
 ---
 
@@ -160,27 +91,47 @@ La grilla mantiene la jornada fija definida por el contrato. Quedan fuera de alc
 
 ```
 /
-├── index.html                      ← Sebastián (integración final)
-├── README.md                       ← cada uno escribe su sección
-├── CONTEXTO.md                     ← contexto y plan de trabajo del equipo
+├── index.html                      ← Página principal (integración final)
+├── README.md                       ← Este archivo
+├── plan.md                         ← Plan teórico: pseudocódigo, demostraciones y análisis
+├── CONTEXTO.md                     ← Contexto, roles y cronograma del equipo
 ├── src/
 │   ├── algoritmos/
-│   │   ├── greedy.js               ← Sebastián
-│   │   └── ordenamiento.js         ← Brayan
-│   ├── comparador.js               ← Brayan
+│   │   ├── greedy.js               ← Algoritmos Greedy (Variante A y B)
+│   │   └── ordenamiento.js         ← MergeSort genérico con conteo de comparaciones
+│   ├── comparador.js               ← Comparador de 3 criterios de ordenamiento
 │   ├── ui/
-│   │   ├── grilla.js               ← Miguel
-│   │   ├── grilla.css              ← Miguel
-│   │   └── paneles.js              ← Emanuel
+│   │   ├── grilla.js               ← Grilla visual hora × consultorio
+│   │   ├── grilla.css              ← Estilos de la grilla
+│   │   ├── paneles.js              ← Paneles de solicitudes (pendientes/aceptadas/rechazadas)
+│   │   ├── editor.js               ← Formulario y lista editable de datos de entrada
+│   │   └── comparacion.js          ← Tabla comparativa de los 3 criterios greedy
 │   └── datos/
-│       └── solicitudes.js          ← Emanuel
+│       └── solicitudes.js          ← Dataset de 15 solicitudes de ejemplo
 ├── pruebas/
-│   ├── test-greedy.html            ← Sebastián
-│   ├── test-ordenamiento.html      ← Brayan
-│   └── casos.js                    ← Emanuel
+│   ├── test-greedy.html            ← Tests unitarios del algoritmo greedy
+│   ├── test-ordenamiento.html      ← Tests del MergeSort y comparador
+│   └── casos.js                    ← Casos de prueba reutilizables
 └── demos/
-    ├── demo-grilla.html            ← Miguel
-    └── demo-paneles.html           ← Emanuel
+    ├── demo-grilla.html            ← Demo independiente de la grilla
+    └── demo-paneles.html           ← Demo independiente de los paneles
 ```
 
-Ver `CONTEXTO.md` para el plan de trabajo completo, roles, cronograma y contrato de datos.
+---
+
+## Tecnologías
+
+- **HTML5 + CSS3 + JavaScript (ES Modules)** — Sin frameworks ni dependencias externas.
+- **Algoritmos implementados desde cero** — El MergeSort propio de `src/algoritmos/ordenamiento.js` es el que ordena dentro de `greedy.js`, tanto en la Variante A como en la B y en el cálculo de la profundidad máxima. En el código de la aplicación no se usa el `.sort()` nativo de JavaScript.
+
+---
+
+## Documentación teórica
+
+El análisis formal del algoritmo (pseudocódigo, complejidad O(n log n), demostraciones de optimalidad por *Greedy Stays Ahead* y *Cota Inferior por Profundidad Máxima*) se encuentra en [`plan.md`](plan.md).
+
+---
+
+## Link al video
+
+[Ver video explicativo del proyecto](https://youtube.com) *(Pendiente de grabación final por el equipo)*.

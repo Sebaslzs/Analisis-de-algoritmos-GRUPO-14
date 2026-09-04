@@ -1,11 +1,14 @@
 // Dueño: Sebastián
 // Algoritmos Voraces (Greedy) para asignación de consultorios E.S.E.
 
+// El ordenamiento usa el mergeSort propio de Brayan, NO el .sort() nativo de JavaScript.
+import { mergeSort } from './ordenamiento.js';
+
 /**
  * Convierte un valor de hora (número o string "HH:MM") a un número flotante en horas.
  * Ejemplo: "08:30" -> 8.5, 9 -> 9.0
  */
-function convertirAHoraDecimal(hora) {
+export function convertirAHoraDecimal(hora) {
   if (typeof hora === 'number') return hora;
   if (typeof hora === 'string') {
     if (hora.includes(':')) {
@@ -20,7 +23,7 @@ function convertirAHoraDecimal(hora) {
 /**
  * Extrae horaInicio / inicio de una solicitud.
  */
-function obtenerInicio(solicitud) {
+export function obtenerInicio(solicitud) {
   const v = solicitud.horaInicio !== undefined ? solicitud.horaInicio : solicitud.inicio;
   return convertirAHoraDecimal(v);
 }
@@ -28,7 +31,7 @@ function obtenerInicio(solicitud) {
 /**
  * Extrae horaFin / fin de una solicitud.
  */
-function obtenerFin(solicitud) {
+export function obtenerFin(solicitud) {
   const v = solicitud.horaFin !== undefined ? solicitud.horaFin : solicitud.fin;
   return convertirAHoraDecimal(v);
 }
@@ -40,13 +43,14 @@ function obtenerFin(solicitud) {
  * @param {Array} solicitudes Lista de objetos solicitud
  * @returns {Object} { aceptadas, rechazadas, totalAceptadas, totalRechazadas }
  */
-function seleccionIntervalos(solicitudes) {
+export function seleccionIntervalos(solicitudes) {
   if (!Array.isArray(solicitudes) || solicitudes.length === 0) {
     return { aceptadas: [], rechazadas: [], totalAceptadas: 0, totalRechazadas: 0 };
   }
 
-  // 1. Copia y ordenamiento por hora de fin ascendente (Criterio Greedy óptimo)
-  const copia = [...solicitudes].sort((a, b) => obtenerFin(a) - obtenerFin(b));
+  // 1. Ordenamiento por hora de fin ascendente (Criterio Greedy óptimo).
+  //    mergeSort devuelve un arreglo nuevo, no modifica el original.
+  const copia = mergeSort(solicitudes, (a, b) => obtenerFin(a) - obtenerFin(b));
 
   const aceptadas = [];
   const rechazadas = [];
@@ -78,13 +82,13 @@ function seleccionIntervalos(solicitudes) {
  * @param {Array} solicitudes Lista de objetos solicitud
  * @returns {Object} { consultorios, totalConsultorios, profundidadMaxima }
  */
-function particionamiento(solicitudes) {
+export function particionamiento(solicitudes) {
   if (!Array.isArray(solicitudes) || solicitudes.length === 0) {
     return { consultorios: [], totalConsultorios: 0, profundidadMaxima: 0 };
   }
 
-  // 1. Copia y ordenamiento por hora de inicio ascendente
-  const copia = [...solicitudes].sort((a, b) => obtenerInicio(a) - obtenerInicio(b));
+  // 1. Ordenamiento por hora de inicio ascendente
+  const copia = mergeSort(solicitudes, (a, b) => obtenerInicio(a) - obtenerInicio(b));
 
   const consultorios = [];
 
@@ -125,7 +129,7 @@ function particionamiento(solicitudes) {
 /**
  * Calcula la profundidad máxima (máximo número de intervalos superpuestos simultáneamente).
  */
-function calcularProfundidadMaxima(solicitudes) {
+export function calcularProfundidadMaxima(solicitudes) {
   const eventos = [];
   for (const s of solicitudes) {
     eventos.push({ tiempo: obtenerInicio(s), tipo: 1 });  // Entrada
@@ -133,7 +137,7 @@ function calcularProfundidadMaxima(solicitudes) {
   }
 
   // Si coinciden en tiempo, las salidas (-1) se procesan antes que las entradas (+1)
-  eventos.sort((a, b) => {
+  const ordenados = mergeSort(eventos, (a, b) => {
     if (a.tiempo !== b.tiempo) return a.tiempo - b.tiempo;
     return a.tipo - b.tipo;
   });
@@ -141,7 +145,7 @@ function calcularProfundidadMaxima(solicitudes) {
   let profundidadActual = 0;
   let maxProfundidad = 0;
 
-  for (const e of eventos) {
+  for (const e of ordenados) {
     profundidadActual += e.tipo;
     if (profundidadActual > maxProfundidad) {
       maxProfundidad = profundidadActual;
@@ -149,16 +153,4 @@ function calcularProfundidadMaxima(solicitudes) {
   }
 
   return maxProfundidad;
-}
-
-// Exportación para entornos Node.js / ES Modules (si aplica) manteniendo compatibilidad de navegador
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    convertirAHoraDecimal,
-    obtenerInicio,
-    obtenerFin,
-    seleccionIntervalos,
-    particionamiento,
-    calcularProfundidadMaxima
-  };
 }

@@ -147,8 +147,13 @@
     <div id="test-results" class="test-list"></div>
   </div>
 
-  <script src="../src/algoritmos/greedy.js"></script>
-  <script>
+  <script type="module">
+    import {
+      convertirAHoraDecimal,
+      seleccionIntervalos,
+      particionamiento
+    } from '../src/algoritmos/greedy.js';
+
     let total = 0;
     let passed = 0;
     let failed = 0;

@@ -110,18 +110,46 @@
     </div>
 
     <div class="tarjeta">
-      <h2>Estado</h2>
-      <p class="estado">
-        ✓ Implementación completada y validada.
-      </p>
-      <p class="descripcion">
-        Esta página sirve como punto de validación visual para el algoritmo de ordenamiento y la comparación de
-        criterios.
-      </p>
+      <h2>Prueba de Ejecución en Vivo</h2>
+      <div id="test-results"></div>
     </div>
 
   </div>
 
-</body>
+  <script type="module">
+    import { mergeSort } from '../src/algoritmos/ordenamiento.js';
+    import { compararCriterios } from '../src/comparador.js';
+    import { solicitudes } from '../src/datos/solicitudes.js';
 
+    const resultsContainer = document.getElementById('test-results');
+
+    function assert(name, condition) {
+      const isPass = Boolean(condition);
+      const div = document.createElement('div');
+      div.style.padding = "10px";
+      div.style.marginBottom = "5px";
+      div.style.borderLeft = isPass ? "4px solid #16a34a" : "4px solid #ef4444";
+      div.style.backgroundColor = isPass ? "#dcfce7" : "#fee2e2";
+      div.innerHTML = `<strong>${name}</strong>: ${isPass ? 'PASS' : 'FAIL'}`;
+      resultsContainer.appendChild(div);
+    }
+
+    try {
+      // 1. Test básico
+      const arr = [5, 2, 9, 1, 5, 6];
+      const sorted = mergeSort(arr, (a, b) => a - b);
+      assert('MergeSort con números simples', JSON.stringify(sorted) === JSON.stringify([1, 2, 5, 5, 6, 9]));
+
+      // 2. Test comparador 
+      const resultado = compararCriterios(solicitudes);
+      assert('Comparador Criterio 1: Hora Fin', resultado.horaFin.cantidad > 0);
+      assert('Comparador Criterio 2: Hora Inicio', resultado.horaInicio.cantidad > 0);
+      assert('Comparador Criterio 3: Duración', resultado.duracion.cantidad > 0);
+
+    } catch(e) {
+      assert('Error ejecutando pruebas: ' + e.message, false);
+    }
+  </script>
+
+</body>
 </html>

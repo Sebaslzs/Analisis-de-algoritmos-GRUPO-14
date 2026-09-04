@@ -1,19 +1,369 @@
-<!-- Dueño: Sebastián (integración final, solo el martes) -->
+<!-- Dueño: Sebastián (integración final) -->
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Asignación de consultorios — Algoritmo greedy</title>
   <link rel="stylesheet" href="src/ui/grilla.css" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      padding: 20px;
+      margin: 0;
+      color: #1f2937;
+    }
+    h1 {
+      text-align: center;
+      color: #1f2937;
+    }
+    .controles {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.8; }
+    #btn-variante-a { background-color: #10b981; }
+    #btn-variante-b { background-color: #3b82f6; }
+    #btn-comparar { background-color: #8b5cf6; }
+    .paneles-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .panel {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .panel h2 { color: #2563eb; font-size: 1.2rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; margin-top: 0; }
+    .panel ul { list-style: none; padding: 0; margin: 0; }
+    .panel li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+
+    /* ---------- Editor de datos de entrada ---------- */
+    .editor {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+    }
+    .editor-cabecera {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 12px;
+    }
+    .editor-cabecera h2 { color: #2563eb; font-size: 1.2rem; margin: 0; }
+    .editor-botones { display: flex; gap: 8px; }
+    .btn-sec {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+    .editor-form {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin: 16px 0 10px;
+    }
+    .editor-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .editor-form input {
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 7px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      background: #fff;
+      color: #1f2937;
+    }
+    .editor-form input[name="id"] { width: 70px; }
+    .editor-form input[name="servicio"],
+    .editor-form input[name="profesional"] { width: 165px; }
+    .editor-form input:focus { outline: 2px solid #93c5fd; outline-offset: 1px; }
+    .btn-add { background-color: #2563eb; }
+
+    .editor-msg { margin: 0 0 12px; font-size: 0.85rem; padding: 9px 12px; border-radius: 5px; }
+    .editor-msg-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .editor-msg-aviso { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .editor-msg-ok { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+
+    .editor-lista { list-style: none; padding: 0; margin: 0; max-height: 220px; overflow-y: auto; }
+    .editor-lista li {
+      display: grid;
+      grid-template-columns: 46px 1.2fr 130px 1fr 30px;
+      gap: 10px;
+      align-items: center;
+      padding: 7px 4px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.85rem;
+    }
+    .editor-id { font-weight: 700; color: #2563eb; }
+    .editor-horario { color: #475569; font-variant-numeric: tabular-nums; }
+    .editor-profesional { color: #94a3b8; }
+    .editor-vacio { display: block; color: #94a3b8; font-style: italic; padding: 14px 4px; }
+    .editor-quitar {
+      background: transparent;
+      color: #cbd5e1;
+      padding: 2px 6px;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+    .editor-quitar:hover { color: #dc2626; opacity: 1; }
+
+    /* ---------- Comparación de criterios ---------- */
+    .comparacion-panel {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .comparacion-cabecera {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 15px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 12px;
+      margin-bottom: 4px;
+    }
+    .comparacion-cabecera h2 { color: #7c3aed; font-size: 1.2rem; margin: 0; }
+    .comparacion-cabecera .resumen { color: #94a3b8; font-size: 0.8rem; }
+    .tabla-comparacion { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .tabla-comparacion th {
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94a3b8;
+      padding: 12px 10px 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .tabla-comparacion td { padding: 12px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+    .tabla-comparacion td small { display: block; color: #94a3b8; font-size: 0.78rem; margin-top: 3px; }
+    .celda-cantidad { font-size: 1.35rem; font-weight: 700; color: #1f2937; text-align: center; white-space: nowrap; }
+    .celda-ids { color: #475569; font-size: 0.82rem; line-height: 1.6; }
+    .fila-ganadora { background: #f5f3ff; }
+    .check { color: #f59e0b; font-size: 0.9rem; }
+    .etiqueta {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-left: 7px;
+      vertical-align: middle;
+    }
+    .etiqueta-optimo { background: #ddd6fe; color: #5b21b6; }
+    .comparacion-nota {
+      margin: 16px 0 0;
+      font-size: 0.83rem;
+      color: #64748b;
+      line-height: 1.6;
+      background: #f8fafc;
+      border-left: 3px solid #c4b5fd;
+      padding: 12px 14px;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .mensaje-vacio {
+      background: white;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 40px 20px;
+      text-align: center;
+      color: #94a3b8;
+    }
+  </style>
 </head>
 <body>
   <h1>Asignación de consultorios (E.S.E.)</h1>
 
-  <script src="src/datos/solicitudes.js"></script>
-  <script src="src/algoritmos/ordenamiento.js"></script>
-  <script src="src/algoritmos/greedy.js"></script>
-  <script src="src/comparador.js"></script>
-  <script src="src/ui/grilla.js"></script>
-  <script src="src/ui/paneles.js"></script>
+  <div class="controles">
+    <button id="btn-variante-a">Variante A (1 Consultorio)</button>
+    <button id="btn-variante-b">Variante B (N Consultorios)</button>
+    <button id="btn-comparar">Comparar criterios</button>
+  </div>
+
+  <div id="estadisticas" style="text-align: center; margin-bottom: 20px; font-weight: bold;"></div>
+
+  <!-- Entrada de datos: reemplaza al arreglo fijo de src/datos/solicitudes.js -->
+  <div id="editor-container"></div>
+
+  <!-- Contenedor para Variante A: Paneles de Emanuel -->
+  <div class="paneles-container" id="paneles-container">
+    <div id="pendientes"></div>
+    <div id="aceptadas"></div>
+    <div id="rechazadas"></div>
+  </div>
+
+  <!-- Contenedor para Variante B: Grilla de Miguel -->
+  <div id="grilla-container"></div>
+
+  <!-- Contenedor para la comparación de criterios: Merge Sort de Brayan -->
+  <div id="comparacion-container"></div>
+
+  <script type="module">
+    import { solicitudes as solicitudesBase } from './src/datos/solicitudes.js';
+    import { seleccionIntervalos, particionamiento } from './src/algoritmos/greedy.js';
+    import { compararCriterios } from './src/comparador.js';
+    import { renderizarResultado, renderizarPendientes } from './src/ui/paneles.js';
+    import { renderizarGrilla } from './src/ui/grilla.js';
+    import { renderizarEditor } from './src/ui/editor.js';
+    import { renderizarComparacion } from './src/ui/comparacion.js';
+
+    const contEditor = document.getElementById('editor-container');
+    const contPaneles = document.getElementById('paneles-container');
+    const contPendientes = document.getElementById('pendientes');
+    const contAceptadas = document.getElementById('aceptadas');
+    const contRechazadas = document.getElementById('rechazadas');
+    const contGrilla = document.getElementById('grilla-container');
+    const contComparacion = document.getElementById('comparacion-container');
+    const estadisticas = document.getElementById('estadisticas');
+
+    // Estado de la aplicación: copia editable del conjunto de ejemplo.
+    let actuales = solicitudesBase.map((s) => ({ ...s }));
+    let vista = 'pendientes';
+    let editorApi = null;
+
+    function mostrarSolo(contenedor) {
+      contPaneles.style.display = contenedor === contPaneles ? 'grid' : 'none';
+      contGrilla.style.display = contenedor === contGrilla ? 'block' : 'none';
+      contComparacion.style.display = contenedor === contComparacion ? 'block' : 'none';
+    }
+
+    function sinDatos(mensaje) {
+      estadisticas.innerHTML = '';
+      contGrilla.innerHTML = '<div class="mensaje-vacio">' + mensaje + '</div>';
+      mostrarSolo(contGrilla);
+    }
+
+    function pintarVista() {
+      if (actuales.length === 0 && vista !== 'pendientes') {
+        sinDatos('No hay solicitudes cargadas. Agrega alguna o pulsa «Restaurar ejemplo».');
+        return;
+      }
+
+      if (vista === 'pendientes') {
+        renderizarPendientes(contPendientes, actuales);
+        contAceptadas.innerHTML = '';
+        contRechazadas.innerHTML = '';
+        estadisticas.innerHTML = '';
+        mostrarSolo(contPaneles);
+        return;
+      }
+
+      if (vista === 'A') {
+        const resultado = seleccionIntervalos(actuales);
+        renderizarResultado(
+          contPendientes, contAceptadas, contRechazadas,
+          actuales, resultado.aceptadas, resultado.rechazadas
+        );
+        estadisticas.innerHTML = '<span style="color:#10b981">Consultorio único: '
+          + resultado.totalAceptadas + ' citas atendidas, '
+          + resultado.totalRechazadas + ' rechazadas.</span>';
+        mostrarSolo(contPaneles);
+        return;
+      }
+
+      if (vista === 'B') {
+        const resultado = particionamiento(actuales);
+        renderizarGrilla(contGrilla, {
+          nombre: 'Minimización de Consultorios',
+          consultorios: resultado.consultorios,
+          rechazadas: []
+        });
+        estadisticas.innerHTML = '<span style="color:#3b82f6">Total de consultorios requeridos: '
+          + resultado.totalConsultorios
+          + ' (Profundidad Máxima: ' + resultado.profundidadMaxima + ')</span>';
+        mostrarSolo(contGrilla);
+        return;
+      }
+
+      if (vista === 'C') {
+        const resultado = compararCriterios(actuales);
+        renderizarComparacion(contComparacion, resultado, actuales.length);
+        const mejor = Math.max(
+          resultado.horaFin.cantidad,
+          resultado.horaInicio.cantidad,
+          resultado.duracion.cantidad
+        );
+        estadisticas.innerHTML = '<span style="color:#8b5cf6">Mejor resultado entre los tres criterios: '
+          + mejor + ' de ' + actuales.length + ' citas.</span>';
+        mostrarSolo(contComparacion);
+      }
+    }
+
+    function pintarEditor(mensaje, tipo) {
+      editorApi = renderizarEditor(contEditor, actuales, acciones);
+      if (mensaje) editorApi.mostrarMensaje(mensaje, tipo);
+    }
+
+    function refrescar(mensaje, tipo) {
+      pintarEditor(mensaje, tipo);
+      pintarVista();
+    }
+
+    const acciones = {
+      onAgregar(solicitud, aviso) {
+        actuales.push(solicitud);
+        refrescar(aviso || ('Solicitud ' + solicitud.id + ' agregada.'), aviso ? 'aviso' : 'ok');
+      },
+      onEliminar(id) {
+        actuales = actuales.filter((s) => String(s.id) !== String(id));
+        refrescar('Solicitud ' + id + ' eliminada.', 'ok');
+      },
+      onRestaurar() {
+        actuales = solicitudesBase.map((s) => ({ ...s }));
+        refrescar('Conjunto de ejemplo restaurado.', 'ok');
+      },
+      onVaciar() {
+        actuales = [];
+        refrescar('Lista vaciada.', 'ok');
+      }
+    };
+
+    document.getElementById('btn-variante-a').addEventListener('click', () => { vista = 'A'; pintarVista(); });
+    document.getElementById('btn-variante-b').addEventListener('click', () => { vista = 'B'; pintarVista(); });
+    document.getElementById('btn-comparar').addEventListener('click', () => { vista = 'C'; pintarVista(); });
+
+    refrescar();
+  </script>
 </body>
 </html>
