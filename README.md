@@ -130,6 +130,24 @@ Algoritmo ParticionamientoIntervalos(solicitudes):
 
 ---
 
+## Grilla hora × consultorio
+
+*(Miguel)*
+
+La visualización está implementada en [`src/ui/grilla.js`](src/ui/grilla.js) y [`src/ui/grilla.css`](src/ui/grilla.css). `renderizarGrilla(contenedor, resultado)` acepta tanto la salida de `seleccionIntervalos` como la de `particionamiento`: reconoce solicitudes con `inicio`/`fin` o `horaInicio`/`horaFin`, y consultorios representados como arreglos o como objetos con la propiedad `solicitudes`.
+
+La demo autónoma se abre directamente en el navegador desde [`demos/demo-grilla.html`](demos/demo-grilla.html). Presenta tres criterios lado a lado, la jornada de 07:00 a 18:00 en bloques de 30 minutos, solicitudes aceptadas en color y rechazadas en gris.
+
+### Prueba realizada
+
+Se verificó la integración cargando `greedy.js` con solicitudes reales y enviando el resultado de `particionamiento` a la grilla. El resultado esperado es una columna por consultorio, todos los intervalos visibles y ningún error de JavaScript. También se verificó la demo independiente y la vista responsive en navegador.
+
+## Trabajo futuro
+
+*(Miguel)*
+
+La grilla mantiene la jornada fija definida por el contrato. Quedan fuera de alcance las recurrencias, las vistas semana/mes/año, los filtros por entidad, la autenticación y la persistencia en base de datos.
+
 ## Link al video
 
 *(Sebastián)*
