@@ -1,13 +1,109 @@
 <!-- Dueño: Emanuel -->
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Demo — paneles</title>
+    <meta charset="UTF-8" />
+    <title>Demo - Paneles</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1f2937;
+        }
+
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .panel h2 {
+            color: #2563eb;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .panel ul {
+            list-style: none;
+        }
+
+        .panel li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .panel li:last-child {
+            border-bottom: none;
+        }
+
+    </style>
+
 </head>
+
 <body>
-  <h1>Demo: paneles de solicitudes y resultados</h1>
-  <script src="../src/datos/solicitudes.js"></script>
-  <script src="../src/ui/paneles.js"></script>
+
+    <h1>
+        Demo: Paneles de Solicitudes y Resultados
+    </h1>
+
+    <div class="contenedor">
+
+        <div id="pendientes"></div>
+
+        <div id="aceptadas"></div>
+
+        <div id="rechazadas"></div>
+
+    </div>
+
+    <script type="module">
+
+        import {
+            solicitudes
+        } from "../src/datos/solicitudes.js";
+
+        import {
+            renderizarResultado
+        } from "../src/ui/paneles.js";
+
+        renderizarResultado(
+            document.getElementById("pendientes"),
+            document.getElementById("aceptadas"),
+            document.getElementById("rechazadas"),
+
+            solicitudes,
+
+            solicitudes.slice(0, 5),
+
+            solicitudes.slice(5, 10)
+        );
+
+    </script>
+
 </body>
+
 </html>
