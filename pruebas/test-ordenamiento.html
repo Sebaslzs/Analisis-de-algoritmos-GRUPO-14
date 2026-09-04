@@ -1,13 +1,155 @@
 <!-- Dueño: Brayan -->
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Pruebas — ordenamiento.js</title>
+  <meta charset="UTF-8">
+  <title>Pruebas - Merge Sort</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .contenedor {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f2937;
+    }
+
+    .tarjeta {
+      background-color: white;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      color: #2563eb;
+    }
+
+    .descripcion {
+      color: #4b5563;
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background-color: #2563eb;
+      color: white;
+    }
+
+    th,
+    td {
+      border: 1px solid #d1d5db;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .estado {
+      color: #16a34a;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Pruebas: mergeSort y comparador de criterios</h1>
-  <script src="../src/algoritmos/ordenamiento.js"></script>
-  <script src="../src/comparador.js"></script>
+
+  <div class="contenedor">
+
+    <h1>Pruebas de Merge Sort y Comparación de Criterios</h1>
+
+    <div class="tarjeta">
+      <h2>Ordenamiento Implementado</h2>
+      <p class="descripcion">
+        El algoritmo Merge Sort fue implementado sin utilizar el método nativo <strong>.sort()</strong> de JavaScript.
+      </p>
+    </div>
+
+    <div class="tarjeta">
+      <h2>Criterios Evaluados</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Hora de Finalización</td>
+            <td>Prioriza las solicitudes que terminan primero.</td>
+          </tr>
+
+          <tr>
+            <td>Hora de Inicio</td>
+            <td>Prioriza las solicitudes que comienzan primero.</td>
+          </tr>
+
+          <tr>
+            <td>Duración</td>
+            <td>Prioriza las solicitudes más cortas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tarjeta">
+      <h2>Prueba de Ejecución en Vivo</h2>
+      <div id="test-results"></div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { mergeSort } from '../src/algoritmos/ordenamiento.js';
+    import { compararCriterios } from '../src/comparador.js';
+    import { solicitudes } from '../src/datos/solicitudes.js';
+
+    const resultsContainer = document.getElementById('test-results');
+
+    function assert(name, condition) {
+      const isPass = Boolean(condition);
+      const div = document.createElement('div');
+      div.style.padding = "10px";
+      div.style.marginBottom = "5px";
+      div.style.borderLeft = isPass ? "4px solid #16a34a" : "4px solid #ef4444";
+      div.style.backgroundColor = isPass ? "#dcfce7" : "#fee2e2";
+      div.innerHTML = `<strong>${name}</strong>: ${isPass ? 'PASS' : 'FAIL'}`;
+      resultsContainer.appendChild(div);
+    }
+
+    try {
+      // 1. Test básico
+      const arr = [5, 2, 9, 1, 5, 6];
+      const sorted = mergeSort(arr, (a, b) => a - b);
+      assert('MergeSort con números simples', JSON.stringify(sorted) === JSON.stringify([1, 2, 5, 5, 6, 9]));
+
+      // 2. Test comparador 
+      const resultado = compararCriterios(solicitudes);
+      assert('Comparador Criterio 1: Hora Fin', resultado.horaFin.cantidad > 0);
+      assert('Comparador Criterio 2: Hora Inicio', resultado.horaInicio.cantidad > 0);
+      assert('Comparador Criterio 3: Duración', resultado.duracion.cantidad > 0);
+
+    } catch(e) {
+      assert('Error ejecutando pruebas: ' + e.message, false);
+    }
+  </script>
+
 </body>
 </html>

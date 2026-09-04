@@ -3,12 +3,48 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Demo — grilla</title>
+  <title>Demo — grilla de consultorios</title>
   <link rel="stylesheet" href="../src/ui/grilla.css" />
 </head>
 <body>
-  <h1>Demo: grilla hora x consultorio</h1>
-  <div id="grilla"></div>
-  <script src="../src/ui/grilla.js"></script>
+  <h1>Grilla hora × consultorio</h1>
+  <main class="comparador">
+    <div id="grilla-fin"></div>
+    <div id="grilla-inicio"></div>
+    <div id="grilla-duracion"></div>
+  </main>
+  <script type="module">
+    import { renderizarGrilla } from "../src/ui/grilla.js";
+    
+    const solicitud = (id, profesional, servicio, inicio, fin) => ({ id, profesional, servicio, inicio, fin });
+    const demo = {
+      aceptadas: [
+        solicitud("S03", "Laura Gómez", "Medicina general", "08:00", "09:30"),
+        solicitud("S07", "Carlos Ruiz", "Odontología", "10:00", "11:00"),
+        solicitud("S11", "Ana Torres", "Pediatría", "11:30", "13:00"),
+        solicitud("S14", "Luis Díaz", "Cardiología", "14:00", "16:00")
+      ],
+      rechazadas: [
+        { solicitud: solicitud("S01", "María Pérez", "Psicología", "08:30", "10:30"), motivo: "Se solapa con S03" },
+        { solicitud: solicitud("S09", "Jorge León", "Nutrición", "12:00", "14:30"), motivo: "Se solapa con S11" }
+      ]
+    };
+
+    renderizarGrilla(document.querySelector("#grilla-fin"), {
+      nombre: "Fin más temprano",
+      consultorios: [demo.aceptadas],
+      rechazadas: demo.rechazadas
+    });
+    renderizarGrilla(document.querySelector("#grilla-inicio"), {
+      nombre: "Inicio más temprano",
+      consultorios: [demo.aceptadas.slice(0, 2), demo.aceptadas.slice(2)],
+      rechazadas: demo.rechazadas.slice(0, 1)
+    });
+    renderizarGrilla(document.querySelector("#grilla-duracion"), {
+      nombre: "Duración más corta",
+      aceptadas: demo.aceptadas.slice(1),
+      rechazadas: demo.rechazadas
+    });
+  </script>
 </body>
 </html>
