@@ -1,7 +1,9 @@
 # Asignación Óptima de Consultorios — Algoritmo Greedy
 
 **Examen 1 — Análisis de Algoritmos · ITM**
-**Integrantes:** Sebastián · Brayan · Miguel · Emanuel
+**Integrantes:** Sebastián · Brayan · Miguel
+
+> **Nota sobre commits:** algunos aportes de Sebastián aparecen en el historial de Git como `HOSPITAL - Portatil Apoyo03`, porque se subieron desde el equipo Apoyo 03. Son commits del mismo integrante.
 
 ---
 
@@ -129,9 +131,3 @@ Cualquier cambio en los datos recalcula de inmediato la vista que estés viendo.
 ## Documentación teórica
 
 El análisis formal del algoritmo (pseudocódigo, complejidad O(n log n), demostraciones de optimalidad por *Greedy Stays Ahead* y *Cota Inferior por Profundidad Máxima*) se encuentra en [`plan.md`](plan.md).
-
----
-
-## Link al video
-
-[Ver video explicativo del proyecto](https://youtube.com) *(Pendiente de grabación final por el equipo)*.

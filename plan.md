@@ -1,12 +1,12 @@
 # Analisis-de-algoritmos-GRUPO-14
 
 **Examen 1 — Análisis de Algoritmos · ITM**
-**Integrantes:** Sebastián · Brayan · Miguel · Emanuel
+**Integrantes:** Sebastián · Brayan · Miguel
 **Entrega:** miércoles 2 de septiembre de 2026
 
 ## Descripción del problema
 
-*(Emanuel)*
+*(Sebastián)*
 
 Una E.S.E. recibe cada día una lista de solicitudes de uso de consultorio (profesional, servicio, hora de inicio y hora de fin). Hoy la coordinación las asigna a ojo. El proyecto responde dos preguntas:
 
@@ -148,12 +148,6 @@ Se verificó la integración cargando `greedy.js` con solicitudes reales y envia
 
 La grilla mantiene la jornada fija definida por el contrato. Quedan fuera de alcance las recurrencias, las vistas semana/mes/año, los filtros por entidad, la autenticación y la persistencia en base de datos.
 
-## Link al video
-
-*(Sebastián)*
-
-[Ver video explicativo del proyecto en YouTube / Loom](https://youtube.com) *(Pendiente de grabación final por el equipo)*.
-
 ---
 
 ## Estructura del proyecto
@@ -161,7 +155,7 @@ La grilla mantiene la jornada fija definida por el contrato. Quedan fuera de alc
 ```
 /
 ├── index.html                      ← Sebastián (integración final)
-├── README.md                       ← cada uno escribe su sección
+├── README.md                       ← documentación del proyecto
 ├── CONTEXTO.md                     ← contexto y plan de trabajo del equipo
 ├── src/
 │   ├── algoritmos/
@@ -171,16 +165,16 @@ La grilla mantiene la jornada fija definida por el contrato. Quedan fuera de alc
 │   ├── ui/
 │   │   ├── grilla.js               ← Miguel
 │   │   ├── grilla.css              ← Miguel
-│   │   └── paneles.js              ← Emanuel
+│   │   └── paneles.js              ← Brayan
 │   └── datos/
-│       └── solicitudes.js          ← Emanuel
+│       └── solicitudes.js          ← Sebastián
 ├── pruebas/
 │   ├── test-greedy.html            ← Sebastián
 │   ├── test-ordenamiento.html      ← Brayan
-│   └── casos.js                    ← Emanuel
+│   └── casos.js                    ← Sebastián
 └── demos/
     ├── demo-grilla.html            ← Miguel
-    └── demo-paneles.html           ← Emanuel
+    └── demo-paneles.html           ← Brayan
 ```
 
 Ver `CONTEXTO.md` para el plan de trabajo completo, roles, cronograma y contrato de datos.
