@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediRuta — Traslado óptimo entre IPS</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>MediRuta</h1>
+    <p>Ruta de traslado más rápida entre centros de salud (Dijkstra)</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label>
+        Origen
+        <select id="origen"></select>
+      </label>
+      <label>
+        Destino
+        <select id="destino"></select>
+      </label>
+      <button id="btn-calcular" type="button">Calcular ruta</button>
+    </section>
+
+    <section class="resultado">
+      <h2>Resultado</h2>
+      <p id="resultado-texto">Selecciona origen y destino.</p>
+      <ol id="resultado-camino"></ol>
+    </section>
+
+    <section class="grafo">
+      <h2>Grafo de IPS</h2>
+      <div id="graph-container">
+        <!-- Ownership: Ema — visualización del grafo -->
+        <p class="stub">Visualización pendiente</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/graph-view.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
