@@ -1,0 +1,81 @@
+/* Ownership: Ema — estilos básicos MediRuta */
+
+:root {
+  --bg: #f5f7fa;
+  --text: #1a2332;
+  --accent: #0d6e6e;
+  --border: #c5ced9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+header {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #e8eef5, #d4e8e8);
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  margin: 0 0 0.25rem;
+  color: var(--accent);
+}
+
+main {
+  padding: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+select,
+button {
+  font: inherit;
+  padding: 0.45rem 0.75rem;
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+#graph-container {
+  min-height: 280px;
+  border: 1px dashed var(--border);
+  padding: 1rem;
+  background: #fff;
+}
+
+.stub {
+  color: #667;
+  font-style: italic;
+}
