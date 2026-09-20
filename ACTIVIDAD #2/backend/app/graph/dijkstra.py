@@ -1,8 +1,4 @@
-"""
-Algoritmo de Dijkstra — camino más corto con pesos no negativos.
-
-Ownership: Sebastián
-"""
+"""Dijkstra — camino más corto con pesos no negativos."""
 
 from __future__ import annotations
 
@@ -15,16 +11,7 @@ def dijkstra(
     origen: str,
     destino: str,
 ) -> dict[str, Any]:
-    """
-    Calcula el camino de menor tiempo entre origen y destino.
-
-    Retorna:
-    {
-        "camino": ["H1", "H3", "H5"],
-        "tiempo_total": 42.0,
-        "encontrado": True,
-    }
-    """
+    """Camino de menor tiempo entre origen y destino."""
     adyacencia: dict[str, list[tuple[str, float]]] = graph.get("adyacencia", {})
 
     if origen not in adyacencia or destino not in adyacencia:
@@ -36,8 +23,6 @@ def dijkstra(
     dist: dict[str, float] = {nodo: float("inf") for nodo in adyacencia}
     prev: dict[str, str | None] = {nodo: None for nodo in adyacencia}
     dist[origen] = 0.0
-
-    # (distancia, nodo)
     heap: list[tuple[float, str]] = [(0.0, origen)]
 
     while heap:
