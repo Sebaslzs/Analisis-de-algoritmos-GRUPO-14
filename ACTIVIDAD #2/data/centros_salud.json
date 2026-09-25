@@ -55,7 +55,6 @@
     { "from": "H4", "to": "H7", "minutos": 16 },
     { "from": "H5", "to": "H6", "minutos": 22 },
     { "from": "H5", "to": "H8", "minutos": 13 },
-    { "from": "H6", "to": "H8", "minutos": 17 },
-    { "from": "H7", "to": "H4", "minutos": 16 }
+    { "from": "H6", "to": "H8", "minutos": 17 }
   ]
 }
