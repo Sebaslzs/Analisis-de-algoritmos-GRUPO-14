@@ -1,5 +1,3 @@
-"""Dijkstra — camino más corto con pesos no negativos."""
-
 from __future__ import annotations
 
 import heapq
@@ -11,7 +9,6 @@ def dijkstra(
     origen: str,
     destino: str,
 ) -> dict[str, Any]:
-    """Camino de menor tiempo entre origen y destino."""
     adyacencia: dict[str, list[tuple[str, float]]] = graph.get("adyacencia", {})
 
     if origen not in adyacencia or destino not in adyacencia:

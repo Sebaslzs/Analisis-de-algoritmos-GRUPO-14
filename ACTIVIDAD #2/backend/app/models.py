@@ -1,9 +1,3 @@
-"""
-Schemas Pydantic (nodo, arista, request/response).
-
-Ownership compartido: Brayan (API) / Sebastián (modelo de grafo).
-"""
-
 from pydantic import BaseModel, Field
 
 

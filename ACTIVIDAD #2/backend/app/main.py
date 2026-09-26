@@ -1,9 +1,3 @@
-"""
-MediRuta — API FastAPI.
-
-Ownership: Brayan
-"""
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 

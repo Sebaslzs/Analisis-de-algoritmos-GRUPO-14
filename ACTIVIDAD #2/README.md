@@ -86,7 +86,6 @@ Link: *(pendiente de agregar)*
 |---|---|
 | Sebastián | Algoritmo Dijkstra + modelo del grafo |
 | Brayan | API backend + datos + tests |
-| Ema | Frontend + visualización |
-| Miguel | Documentación, README, video |
+| Miguel | Frontend, visualización, documentación y video |
 
 Ver [docs/roles.md](docs/roles.md).

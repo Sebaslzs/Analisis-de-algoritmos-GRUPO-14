@@ -1,5 +1,3 @@
-"""Pruebas de rutas conocidas y casos borde de la API MediRuta."""
-
 from fastapi.testclient import TestClient
 
 from app.graph.dijkstra import dijkstra

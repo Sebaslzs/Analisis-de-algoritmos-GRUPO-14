@@ -1,9 +1,3 @@
-"""
-Endpoints de la API.
-
-Ownership: Brayan
-"""
-
 from pathlib import Path
 
 from fastapi import APIRouter
@@ -24,7 +18,6 @@ def health():
 
 @router.get("/graph")
 def get_graph():
-    """Devuelve nodos y aristas para visualización."""
     return {
         "nodos": GRAPH["nodos"],
         "aristas": GRAPH["aristas"],
@@ -33,7 +26,6 @@ def get_graph():
 
 @router.post("/shortest-path", response_model=ShortestPathResponse)
 def shortest_path(body: ShortestPathRequest) -> ShortestPathResponse:
-    """Calcula la ruta óptima con Dijkstra."""
     result = dijkstra(GRAPH, body.origen, body.destino)
     mensaje = None
     if not result["encontrado"]:

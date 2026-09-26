@@ -1,8 +1,3 @@
-/**
- * Llamadas al backend MediRuta.
- * Ownership: Ema
- */
-
 const API_BASE = "http://127.0.0.1:8000";
 
 async function readResponse(res, endpoint) {
@@ -11,9 +6,7 @@ async function readResponse(res, endpoint) {
     try {
       const body = await res.json();
       detail = body.detail ? `: ${body.detail}` : "";
-    } catch {
-      // The server may return a non-JSON error page.
-    }
+    } catch {}
     throw new Error(`${endpoint} respondió ${res.status}${detail}`);
   }
   return res.json();

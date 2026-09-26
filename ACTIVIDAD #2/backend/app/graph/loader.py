@@ -1,5 +1,3 @@
-"""Carga del JSON a lista de adyacencia ponderada."""
-
 from __future__ import annotations
 
 import json
@@ -9,7 +7,6 @@ from typing import Any
 
 
 def load_graph(path: str | Path) -> dict[str, Any]:
-    """Lee el dataset y arma nodos, aristas y adyacencia (grafo no dirigido)."""
     path = Path(path)
     with path.open(encoding="utf-8") as f:
         data = json.load(f)

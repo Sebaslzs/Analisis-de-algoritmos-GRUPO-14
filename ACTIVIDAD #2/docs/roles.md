@@ -12,8 +12,7 @@ La calificación del examen es **individual**. Cada integrante debe dejar eviden
 |---|---|---|
 | **Sebastián** | Núcleo del algoritmo + modelo del grafo | `backend/app/graph/`, parte de `backend/app/models.py`, `docs/algoritmo-dijkstra.md` |
 | **Brayan** | API backend + datos + tests | `backend/app/main.py`, `backend/app/routers/`, `data/`, `backend/requirements.txt`, `backend/tests/` |
-| **Ema** | Frontend + visualización del grafo | `frontend/` |
-| **Miguel** | Documentación, README, video, coordinación | `README.md`, `docs/problema.md`, `docs/roles.md`, `docs/video.md`, `.gitignore` |
+| **Miguel** | Frontend, visualización, documentación y video | `frontend/`, `README.md`, `docs/problema.md`, `docs/roles.md`, `docs/video.md`, `.gitignore` |
 
 ---
 
@@ -34,16 +33,11 @@ La calificación del examen es **individual**. Cada integrante debe dejar eviden
 - Escribir tests en `backend/tests/test_dijkstra.py` que validen rutas conocidas.
 - Mantener `requirements.txt`.
 
-### Ema — Interfaz y visualización
+### Miguel — Frontend, docs, entrega y video
 
-- Pantalla para elegir origen y destino.
-- Consumir la API (`js/api.js`).
+- Pantalla para elegir origen y destino; consumir la API (`js/api.js`).
 - Dibujar el grafo y **resaltar la ruta** calculada (`js/graph-view.js`).
-- Mostrar tiempo total y lista de centros de la ruta.
-- Estilos básicos y usabilidad en desktop/móvil razonable.
-
-### Miguel — Docs, entrega y video
-
+- Mostrar tiempo total y lista de centros; estilos y usabilidad desktop/móvil.
 - Mantener `README.md` alineado con las pautas (problema, solución, algoritmo, link del video).
 - Redactar/actualizar `docs/problema.md`, `docs/roles.md`, `docs/video.md`.
 - Coordinar fecha de grabación y checklist pre-entrega.
@@ -80,26 +74,27 @@ docs: agregar enunciado del problema de salud
 2. Trabajar preferentemente en los archivos de tu ownership.
 3. Si necesitas tocar un archivo de otra persona, avisar al grupo antes.
 4. No subir secretos, `.env`, ni carpetas `venv` / `__pycache__` (ya están en `.gitignore`).
+5. No subir `pautas.md` (está en `.gitignore`; es material interno del grupo).
 
 ---
 
 ## Sustentación (todos)
 
-Aunque Miguel coordina el video, **los cuatro** deben poder explicar:
+Aunque Miguel coordina el video, **los tres** deben poder explicar:
 
 1. El problema de salud planteado.
 2. Cómo se modela como grafo.
 3. Cómo funciona Dijkstra (a alto nivel, con el ejemplo del dataset).
 4. Qué parte implementó cada uno.
 
-Guion y checklist: [video.md](video.md) *(stub — completar)*.
+Guion y checklist: [video.md](video.md).
 
 ---
 
 ## Revisión grupal de este documento
 
-- [ ] Roles confirmados por los 4 integrantes
-- [ ] Ownership de carpetas sin solapamientos conflictivos
-- [ ] Convención de commits acordada
+- [x] Roles confirmados por los 3 integrantes
+- [x] Ownership de carpetas sin solapamientos conflictivos
+- [x] Convención de commits acordada
 
-Última revisión grupal: *(fecha pendiente)*
+Última revisión grupal: 26 de septiembre de 2026
