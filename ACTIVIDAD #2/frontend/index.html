@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediRuta — Traslado óptimo entre IPS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="MediRuta, inicio">Medi<span>Ruta</span></a>
+      <p>Red de traslados entre centros de salud</p>
+      <a class="api-link" href="http://127.0.0.1:8000/docs" target="_blank" rel="noreferrer">API <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="workspace" aria-label="Calculadora de rutas">
+      <aside class="sidebar">
+        <p class="eyebrow">PLANIFICADOR DE TRASLADOS</p>
+        <h1>Encuentra la ruta más rápida.</h1>
+        <p class="intro">Compara centros de salud conectados y calcula el tiempo mínimo de traslado.</p>
+
+        <form id="route-form" class="controls">
+          <label for="origen">Centro de origen</label>
+          <select id="origen" name="origen" required disabled>
+            <option value="">Cargando centros…</option>
+          </select>
+
+          <div class="route-connector" aria-hidden="true"><span></span></div>
+
+          <label for="destino">Centro de destino</label>
+          <select id="destino" name="destino" required disabled>
+            <option value="">Cargando centros…</option>
+          </select>
+
+          <button id="btn-calcular" type="submit" disabled>
+            <span>Calcular ruta</span><span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+        </form>
+
+        <section class="resultado" aria-live="polite" aria-atomic="true">
+          <p class="eyebrow">RESULTADO</p>
+          <p id="resultado-texto" class="result-message">Conecta con la API para cargar la red.</p>
+          <ol id="resultado-camino" class="route-list"></ol>
+        </section>
+      </aside>
+
+      <section class="grafo" aria-labelledby="graph-title">
+        <div class="graph-heading">
+          <div>
+            <p class="eyebrow">MAPA DE CONEXIONES</p>
+            <h2 id="graph-title">Red de centros</h2>
+          </div>
+          <span id="graph-count" class="graph-count">Cargando…</span>
+        </div>
+        <div id="graph-container" class="graph-container">
+          <p class="stub">Cargando grafo…</p>
+        </div>
+        <ul id="graph-key" class="graph-key" aria-label="Centros de salud"></ul>
+        <p class="graph-note"><span class="key-line" aria-hidden="true"></span> Minutos estimados entre centros <span class="key-route" aria-hidden="true"></span> Ruta óptima</p>
+      </section>
+    </section>
+  </main>
+
+  <script src="js/api.js" defer></script>
+  <script src="js/graph-view.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

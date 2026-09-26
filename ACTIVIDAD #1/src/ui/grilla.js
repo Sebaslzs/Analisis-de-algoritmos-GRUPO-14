@@ -1,7 +1,7 @@
 // Dueño: Miguel
 // renderizarGrilla(contenedor, resultado) -> pinta la grilla hora x consultorio
 
-(function () {
+
 	const JORNADA_INICIO = 7 * 60;
 	const JORNADA_FIN = 18 * 60;
 	const SLOT = 30;
@@ -52,7 +52,7 @@
 		return [Array.isArray(resultado.aceptadas) ? resultado.aceptadas : []];
 	}
 
-	function renderizarGrilla(contenedor, resultado) {
+	export function renderizarGrilla(contenedor, resultado) {
 		if (!contenedor || !resultado) return;
 
 		const consultorios = normalizarConsultorios(resultado);
@@ -95,5 +95,3 @@
 		</div>`;
 	}
 
-	window.renderizarGrilla = renderizarGrilla;
-})();

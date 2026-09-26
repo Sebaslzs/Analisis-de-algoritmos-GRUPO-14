@@ -13,8 +13,9 @@
     <div id="grilla-inicio"></div>
     <div id="grilla-duracion"></div>
   </main>
-  <script src="../src/ui/grilla.js"></script>
-  <script>
+  <script type="module">
+    import { renderizarGrilla } from "../src/ui/grilla.js";
+    
     const solicitud = (id, profesional, servicio, inicio, fin) => ({ id, profesional, servicio, inicio, fin });
     const demo = {
       aceptadas: [

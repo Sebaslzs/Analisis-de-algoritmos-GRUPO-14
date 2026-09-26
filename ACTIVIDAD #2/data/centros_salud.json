@@ -1,0 +1,60 @@
+{
+  "descripcion": "Red ficticia de IPS para MediRuta (MVP). Ownership: Brayan.",
+  "nodos": [
+    {
+      "id": "H1",
+      "nombre": "IPS Centro Norte",
+      "especialidades": ["medicina general", "urgencias"]
+    },
+    {
+      "id": "H2",
+      "nombre": "Clínica Sur",
+      "especialidades": ["pediatría", "medicina general"]
+    },
+    {
+      "id": "H3",
+      "nombre": "Hospital Occidente",
+      "especialidades": ["cirugía", "urgencias"]
+    },
+    {
+      "id": "H4",
+      "nombre": "IPS Oriente",
+      "especialidades": ["cardiología", "medicina general"]
+    },
+    {
+      "id": "H5",
+      "nombre": "Hospital Universitario",
+      "especialidades": ["cardiología", "neurología", "urgencias"]
+    },
+    {
+      "id": "H6",
+      "nombre": "Clínica del Valle",
+      "especialidades": ["ginecología", "pediatría"]
+    },
+    {
+      "id": "H7",
+      "nombre": "IPS La Esperanza",
+      "especialidades": ["medicina general"]
+    },
+    {
+      "id": "H8",
+      "nombre": "Centro Trauma Metropolitano",
+      "especialidades": ["urgencias", "cirugía", "trauma"]
+    }
+  ],
+  "aristas": [
+    { "from": "H1", "to": "H3", "minutos": 12 },
+    { "from": "H1", "to": "H4", "minutos": 18 },
+    { "from": "H1", "to": "H7", "minutos": 8 },
+    { "from": "H2", "to": "H3", "minutos": 15 },
+    { "from": "H2", "to": "H6", "minutos": 10 },
+    { "from": "H2", "to": "H8", "minutos": 20 },
+    { "from": "H3", "to": "H5", "minutos": 14 },
+    { "from": "H3", "to": "H8", "minutos": 11 },
+    { "from": "H4", "to": "H5", "minutos": 9 },
+    { "from": "H4", "to": "H7", "minutos": 16 },
+    { "from": "H5", "to": "H6", "minutos": 22 },
+    { "from": "H5", "to": "H8", "minutos": 13 },
+    { "from": "H6", "to": "H8", "minutos": 17 }
+  ]
+}
