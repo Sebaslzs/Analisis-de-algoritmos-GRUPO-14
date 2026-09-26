@@ -1,10 +1,12 @@
 # Problema: traslado óptimo entre centros de salud
 
+> Documento de alcance y problema, actualizado por Miguel. La red y los tiempos de este MVP son ficticios y solo tienen fines académicos.
+
 ## Contexto
 
 En una ciudad, los pacientes a menudo deben moverse entre Instituciones Prestadoras de Salud (IPS) u hospitales: por remisión a una especialidad, por saturación de camas o por una emergencia que requiere un nivel de atención distinto.
 
-Cada traslado tiene un **costo en tiempo** (minutos de desplazamiento entre sedes). Elegir mal la ruta puede retrasar la atención y saturar trayectos innecesarios.
+Cada traslado tiene un **costo estimado en tiempo** (minutos entre sedes). Para este MVP se usa un dataset pequeño y ficticio; sus tiempos no corresponden a tráfico medido ni deben usarse para orientar traslados reales.
 
 ## Problema a resolver
 
@@ -23,7 +25,7 @@ Opcionalmente (extensión): si el usuario indica una **especialidad** requerida 
 | Tiempo estimado de traslado (minutos) | **Peso** de la arista (positivo) |
 | Secuencia óptima de sedes a recorrer | **Camino más corto** |
 
-El grafo se trata como **no dirigido** en el MVP: si A se conecta con B en *t* minutos, B se conecta con A en el mismo tiempo (salvo que el dataset defina lo contrario).
+El grafo se trata como **no dirigido** en el MVP: si A se conecta con B en *t* minutos, B se conecta con A en el mismo tiempo. El cargador crea ambas direcciones para cada arista del JSON.
 
 ## Algoritmo seleccionado
 
@@ -54,7 +56,8 @@ Incluye:
 
 - Dataset estático en JSON (`data/centros_salud.json`).
 - Backend que carga el grafo y expone el cálculo de camino más corto.
-- Frontend que permite elegir origen/destino y muestra resultado + grafo.
+- Frontend que permite elegir origen/destino, muestra nombres e identificadores de la ruta y resalta nodos y aristas del camino en el grafo.
+- Casos de prueba para una ruta conocida, origen igual a destino, nodo inexistente y grafo sin ruta.
 
 No incluye (fuera de alcance académico):
 
@@ -65,9 +68,11 @@ No incluye (fuera de alcance académico):
 ## Criterio de éxito
 
 1. El uso de Dijkstra es **evidente** en el código y en la demo.
-2. Para un par origen–destino con camino existente, la ruta y el costo coinciden con el camino óptimo del grafo.
-3. Si no hay camino, el sistema lo indica de forma clara.
-4. El `README.md` y el video cubren: problema, algoritmo, funcionamiento, implementación y resultados.
+2. Para H1 → H5, la ruta mínima del dataset es H1 → H3 → H5 y el costo es 26 minutos.
+3. Para origen igual a destino, el resultado contiene ese único nodo y cuesta 0 minutos.
+4. Para un nodo desconocido o dos componentes sin conexión, la API responde `encontrado: false`; la interfaz informa que no hay ruta.
+5. La interfaz explica errores de conexión con la API y se puede usar en escritorio y móvil.
+6. El `README.md` y la sustentación cubren problema, algoritmo, ejecución, implementación, pruebas y resultados.
 
 ## Revisión grupal
 

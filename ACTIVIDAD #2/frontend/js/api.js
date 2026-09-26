@@ -5,10 +5,23 @@
 
 const API_BASE = "http://127.0.0.1:8000";
 
+async function readResponse(res, endpoint) {
+  if (!res.ok) {
+    let detail = "";
+    try {
+      const body = await res.json();
+      detail = body.detail ? `: ${body.detail}` : "";
+    } catch {
+      // The server may return a non-JSON error page.
+    }
+    throw new Error(`${endpoint} respondió ${res.status}${detail}`);
+  }
+  return res.json();
+}
+
 async function fetchGraph() {
   const res = await fetch(`${API_BASE}/graph`);
-  if (!res.ok) throw new Error(`GET /graph → ${res.status}`);
-  return res.json();
+  return readResponse(res, "GET /graph");
 }
 
 async function fetchShortestPath(origen, destino) {
@@ -17,6 +30,5 @@ async function fetchShortestPath(origen, destino) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ origen, destino }),
   });
-  if (!res.ok) throw new Error(`POST /shortest-path → ${res.status}`);
-  return res.json();
+  return readResponse(res, "POST /shortest-path");
 }
