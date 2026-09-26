@@ -18,4 +18,4 @@ Este repositorio agrupa las actividades del curso. Cada una vive en su propia ca
 
 ## Integrantes
 
-Sebastián · Brayan · Miguel · Ema
+Sebastián · Brayan · Miguel
