@@ -78,7 +78,7 @@ Prueba el flujo completo:
 
 ## Video de sustentación
 
-Link: *(pendiente de agregar)*
+Link: https://correoitmedu-my.sharepoint.com/:v:/g/personal/brayanenriquez250112_correo_itm_edu_co/IQA5TUjcUMCsRqT9GfIAmqY3ASs_fkePfyHjWMImqRlsCG4 
 
 ## Integrantes
 
