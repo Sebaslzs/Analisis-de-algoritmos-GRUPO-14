@@ -8,13 +8,14 @@ Este repositorio agrupa las actividades del curso. Cada una vive en su propia ca
 |-----------|---------|------|
 | **#1** | [`ACTIVIDAD #1/`](./ACTIVIDAD%20%231/) | Asignación óptima de consultorios — Algoritmo Greedy |
 | **#2** | [`ACTIVIDAD #2/`](./ACTIVIDAD%20%232/) | MediRuta — Traslado óptimo entre centros de salud (Dijkstra) |
-| **#3** | [`ACTIVIDAD #3/`](./ACTIVIDAD%20%233/) | *(pendiente)* |
+| **#3** | [`ACTIVIDAD #3/`](./ACTIVIDAD%20%233/) | Asignación de recursos de UCI — Mochila 0/1 (programación dinámica) |
 | **#4** | [`ACTIVIDAD #4/`](./ACTIVIDAD%20%234/) | *(pendiente)* |
 
 ## Enlaces rápidos
 
 - [README Actividad #1](./ACTIVIDAD%20%231/README.md)
 - [README Actividad #2](./ACTIVIDAD%20%232/README.md)
+- [README Actividad #3](./ACTIVIDAD%20%233/README.md)
 
 ## Integrantes
 
