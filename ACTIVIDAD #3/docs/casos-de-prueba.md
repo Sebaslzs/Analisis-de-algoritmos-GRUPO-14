@@ -1,6 +1,6 @@
 # Casos de prueba
 
-Brayan completa este archivo. Sebastián usa el caso resuelto a mano como prueba del algoritmo. Miguel lo carga en la página.
+Brayan, completa este archivo. Yo uso el caso que resuelvas a mano como prueba del algoritmo, y Miguel lo carga en la página.
 
 Formato de cada escenario, igual al JSON:
 
@@ -9,4 +9,4 @@ Formato de cada escenario, igual al JSON:
 - `pacientes`: lista de `{ id, nombre, costo, beneficio }`
 - `costo` y `beneficio`: enteros. `costo` mayor que 0. `beneficio` mayor o igual que 0
 
-Para el caso `turno-corto`, escribir la tabla `dp[i][c]` completa, el beneficio óptimo, el costo usado y los `id` elegidos.
+Para el caso `turno-corto`, escribe la tabla `dp[i][c]` completa, el beneficio óptimo, el costo usado y los `id` elegidos.
