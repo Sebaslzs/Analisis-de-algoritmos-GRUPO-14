@@ -1,0 +1,9 @@
+{
+  "nombre": "Capacidad limitada",
+  "capacidad": 6,
+  "pacientes": [
+    { "id": "p1", "nombre": "Paciente 1", "costo": 4, "beneficio": 7 },
+    { "id": "p2", "nombre": "Paciente 2", "costo": 5, "beneficio": 8 },
+    { "id": "p3", "nombre": "Paciente 3", "costo": 3, "beneficio": 4 }
+  ]
+}
