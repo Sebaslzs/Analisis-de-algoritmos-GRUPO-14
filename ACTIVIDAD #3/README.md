@@ -14,7 +14,9 @@ Les dejé el reparto de archivos en [docs/TAREAS.md](docs/TAREAS.md), para que n
 
 En un turno, la UCI dispone de una capacidad entera de recurso (horas-cama). Cada paciente en espera pide una cantidad entera de ese recurso y tiene un beneficio clínico entero: la prioridad de atenderlo ahora. Hay que elegir un subconjunto de pacientes que no pase de la capacidad y que maximice la suma de beneficios. Un paciente entra completo o no entra. El recurso no se fracciona.
 
-Brayan, amplía esta sección: qué representa el recurso, qué representa el beneficio y por qué revisar todos los subconjuntos deja de servir cuando la lista de pacientes crece.
+La capacidad representa el total de horas-cama disponibles para el turno; el costo de cada paciente es la cantidad de esas horas que ocuparía. El beneficio es una puntuación de prioridad definida para este ejercicio, no una recomendación clínica real. Cada paciente se atiende completo o queda para otro turno, por lo que el problema corresponde a mochila 0/1.
+
+Para `n` pacientes hay `2^n` subconjuntos posibles. Revisarlos uno por uno escala exponencialmente: al agregar un paciente, se duplica la cantidad de combinaciones. Por ejemplo, 10 pacientes dan 1.024 subconjuntos y 30 dan más de mil millones. Por eso se usa programación dinámica, que reutiliza resultados para subproblemas de prefijos de pacientes y capacidades; su tabla tiene `(n + 1)(capacidad + 1)` estados.
 
 ## Algoritmo
 
@@ -64,7 +66,15 @@ Miguel, completa esta sección cuando la página tenga el formulario, la lista d
 
 <!-- BRAYAN -->
 
-Brayan, anota aquí, para cada escenario de `ejemplos/`, la capacidad, el beneficio total, el costo usado y los pacientes seleccionados. El detalle a mano del caso `turno-corto` va en [docs/casos-de-prueba.md](docs/casos-de-prueba.md).
+Los resultados de los escenarios son:
+
+| Escenario | Capacidad | Beneficio total | Costo usado | Pacientes seleccionados |
+|---|---:|---:|---:|---|
+| `turno-corto` | 5 | 7 | 5 | p1 y p2 (óptimo empatado con p2 y p4) |
+| `turno-lleno` | 10 | 17 | 10 | p1 y p2 |
+| `no-alcanza` | 6 | 8 | 5 | p2 |
+
+La resolución manual completa de `turno-corto`, incluida la tabla `dp[i][c]`, está en [docs/casos-de-prueba.md](docs/casos-de-prueba.md).
 
 ## Videos de sustentación
 

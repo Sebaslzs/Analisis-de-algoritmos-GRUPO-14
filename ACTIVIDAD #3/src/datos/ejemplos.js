@@ -1,5 +1,7 @@
 export const ESCENARIOS = [
   { id: "turno-corto", archivo: "ejemplos/turno-corto.json" },
+  { id: "turno-lleno", archivo: "ejemplos/turno-lleno.json" },
+  { id: "no-alcanza", archivo: "ejemplos/no-alcanza.json" },
 ];
 
 export async function cargarEjemplo(id) {

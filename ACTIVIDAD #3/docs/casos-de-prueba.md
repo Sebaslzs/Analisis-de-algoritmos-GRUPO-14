@@ -1,12 +1,31 @@
 # Casos de prueba
 
-Brayan, completa este archivo. Yo uso el caso que resuelvas a mano como prueba del algoritmo, y Miguel lo carga en la página.
+## Turno corto resuelto a mano
 
-Formato de cada escenario, igual al JSON:
+La capacidad es 5. Los pacientes disponibles son:
 
-- `nombre`: texto del turno
-- `capacidad`: entero mayor o igual que 0, recomendado hasta 30 para que la tabla se vea en pantalla
-- `pacientes`: lista de `{ id, nombre, costo, beneficio }`
-- `costo` y `beneficio`: enteros. `costo` mayor que 0. `beneficio` mayor o igual que 0
+| Índice | ID | Costo | Beneficio |
+|---:|---|---:|---:|
+| 1 | p1 | 2 | 3 |
+| 2 | p2 | 3 | 4 |
+| 3 | p3 | 4 | 5 |
+| 4 | p4 | 2 | 3 |
 
-Para el caso `turno-corto`, escribe la tabla `dp[i][c]` completa, el beneficio óptimo, el costo usado y los `id` elegidos.
+`dp[i][c]` representa el mayor beneficio posible usando los primeros `i` pacientes y una capacidad `c`. Las filas corresponden a `i` y las columnas a `c`.
+
+| `i \\ c` | 0 | 1 | 2 | 3 | 4 | 5 |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 1 (p1) | 0 | 0 | 3 | 3 | 3 | 3 |
+| 2 (p2) | 0 | 0 | 3 | 4 | 4 | 7 |
+| 3 (p3) | 0 | 0 | 3 | 4 | 5 | 7 |
+| 4 (p4) | 0 | 0 | 3 | 4 | 6 | 7 |
+
+El óptimo es `dp[4][5] = 7`. Una selección óptima es `p1` y `p2`: consume `2 + 3 = 5` unidades y obtiene beneficio `3 + 4 = 7`. También existe un empate con `p2` y `p4`, que igualmente consume 5 y obtiene beneficio 7; el algoritmo puede devolver una de las dos selecciones óptimas según su regla de reconstrucción.
+
+## Validación de entradas
+
+- `capacidad` debe ser un entero mayor o igual que 0.
+- `pacientes` debe ser una lista de objetos.
+- En cada paciente, `costo` debe ser un entero mayor que 0 y `beneficio` un entero mayor o igual que 0.
+- Una lista vacía es válida: no hay pacientes que asignar y el beneficio máximo es 0.
