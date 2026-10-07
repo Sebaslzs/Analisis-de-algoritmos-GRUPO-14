@@ -58,9 +58,9 @@ npm test
 npx serve .
 ```
 
-Abrir la dirección que imprima el servidor. También sirve la extensión Live Server sobre `index.html`.
+Abrir la dirección que imprima el servidor (por ejemplo `http://localhost:3000`).
 
-Miguel, completa esta sección cuando la página tenga el formulario, la lista de pacientes elegidos y la tabla.
+La página incluye un formulario para la capacidad del turno, un selector de escenarios predefinidos, una lista editable de pacientes con nombre, costo y beneficio, y un botón para calcular la solución. Al procesar la entrada, se muestra el beneficio total, el costo usado, los pacientes elegidos y la tabla de programación dinámica con la celda final resaltada.
 
 ## Resultados
 
