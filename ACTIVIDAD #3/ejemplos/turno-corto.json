@@ -1,0 +1,10 @@
+{
+  "nombre": "Turno corto",
+  "capacidad": 5,
+  "pacientes": [
+    { "id": "p1", "nombre": "Paciente 1", "costo": 2, "beneficio": 3 },
+    { "id": "p2", "nombre": "Paciente 2", "costo": 3, "beneficio": 4 },
+    { "id": "p3", "nombre": "Paciente 3", "costo": 4, "beneficio": 5 },
+    { "id": "p4", "nombre": "Paciente 4", "costo": 2, "beneficio": 3 }
+  ]
+}
