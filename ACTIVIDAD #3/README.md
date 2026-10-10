@@ -45,7 +45,7 @@ resolverAsignacion(pacientes, capacidad)
 - Salida: `{ beneficioTotal, costoTotal, seleccionados, tabla }`.
 - `tabla[i][c]` corresponde a `dp[i][c]`. Tiene `pacientes.length + 1` filas y `capacidad + 1` columnas.
 
-Dejé la función armando la tabla en ceros y devolviendo listas vacías. Yo completo el llenado, la reconstrucción y explico aquí cómo quedó implementada.
+En `resolverAsignacion` armo `tabla` con ceros, así quedan los casos base, y después recorro cada paciente y cada capacidad aplicando la recurrencia. Para obtener `seleccionados` vuelvo desde `dp[n][capacidad]` hacia la primera fila: si el valor de la celda es mayor que el de la fila anterior, ese paciente entra y resto su costo. Si las dos celdas son iguales, no lo tomo, así que en un empate me quedo con los pacientes que aparecen primero en la lista. `beneficioTotal` es `dp[n][capacidad]` y `costoTotal` es la suma de los costos elegidos.
 
 ## Cómo ejecutarlo
 
