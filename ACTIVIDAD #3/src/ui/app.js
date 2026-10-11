@@ -186,6 +186,10 @@ async function cargarEscenarioActual() {
     const datos = await cargarEjemplo(idSeleccionado);
     capacidadInput.value = datos.capacidad ?? 0;
     renderPacientes(datos.pacientes ?? []);
+    beneficioTotal.textContent = "0";
+    costoTotal.textContent = "0";
+    seleccionadosList.replaceChildren();
+    renderizarTabla(tablaContainer, []);
     mostrarErrores([]);
   } catch (error) {
     mostrarErrores([error.message]);

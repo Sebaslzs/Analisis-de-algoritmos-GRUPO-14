@@ -10,7 +10,7 @@ export async function cargarEjemplo(id) {
     throw new Error(`Ejemplo desconocido: ${id}`);
   }
 
-  const respuesta = await fetch(escenario.archivo);
+  const respuesta = await fetch(escenario.archivo, { cache: "no-store" });
   if (!respuesta.ok) {
     throw new Error(`No se pudo cargar ${escenario.archivo}`);
   }

@@ -4,9 +4,7 @@ Desarrollo del examen 3 de Análisis de Algoritmos (programación dinámica). Gr
 
 Integrantes: Sebastián López, Brayan y Miguel.
 
-Entrega: repositorio Git, antes del sábado 10 de octubre de 2026. Cada uno graba su sustentación, de 3 a 5 minutos, y pega el enlace en su bloque de videos.
-
-Les dejé el reparto de archivos en [docs/TAREAS.md](docs/TAREAS.md), para que no nos pisemos el trabajo.
+Entrega: repositorio Git, antes del sábado 10 de octubre de 2026. La sustentación queda enlazada al final de este archivo.
 
 ## Problema
 
@@ -55,10 +53,10 @@ Hace falta Node.js para las pruebas y un servidor estático para la página. Los
 
 ```bash
 npm test
-npx serve .
+python -m http.server 3000
 ```
 
-Abrir la dirección que imprima el servidor (por ejemplo `http://localhost:3000`).
+Abrir http://127.0.0.1:3000. También sirve `npx serve .` si se prefiere ese servidor.
 
 La página incluye un formulario para la capacidad del turno, un selector de escenarios predefinidos, una lista editable de pacientes con nombre, costo y beneficio, y un botón para calcular la solución. Al procesar la entrada, se muestra el beneficio total, el costo usado, los pacientes elegidos y la tabla de programación dinámica con la celda final resaltada.
 
@@ -76,32 +74,12 @@ Los resultados de los escenarios son:
 
 La resolución manual completa de `turno-corto`, incluida la tabla `dp[i][c]`, está en [docs/casos-de-prueba.md](docs/casos-de-prueba.md).
 
-## Videos de sustentación
+## Video de sustentación
 
-En tu video explica el problema, el algoritmo, la recurrencia y los estados, los casos base, la implementación o la aplicación, los resultados y tu aporte.
-
-<!-- SEBASTIAN -->
-
-- Sebastián López: enlace pendiente.
-
-<!-- BRAYAN -->
-
-- Brayan: enlace pendiente.
-
-<!-- MIGUEL -->
-
-- Miguel: enlace pendiente.
+https://correoitmedu-my.sharepoint.com/:v:/g/personal/brayanenriquez250112_correo_itm_edu_co/IQCCqnAMn1GSSJ2HMndWTC8FAfX5n0_KuCG1QaTrl6orf-g
 
 ## Aportes
 
-<!-- SEBASTIAN -->
-
-- Yo: algoritmo, pruebas de `resolverAsignacion` y esta sección del README.
-
-<!-- BRAYAN -->
-
-- Brayan, tu parte: enunciado, escenarios JSON, validación, casos a mano y resultados.
-
-<!-- MIGUEL -->
-
-- Miguel, tu parte: página, formulario, dibujo de la tabla y puesta en marcha.
+- Sebastián López: algoritmo, pruebas de `resolverAsignacion` y la sección del algoritmo en este README.
+- Brayan: enunciado, escenarios JSON, validación, caso resuelto a mano y resultados.
+- Miguel: página, formulario, dibujo de la tabla y puesta en marcha.
