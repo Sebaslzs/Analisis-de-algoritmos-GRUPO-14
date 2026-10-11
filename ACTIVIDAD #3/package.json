@@ -1,0 +1,8 @@
+{
+  "name": "asignacion-uci",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
