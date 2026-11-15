@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+tempCodeRunnerFile.py
+
+# IDE / editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs y temporales
+*.log
+tmp/
+temp/
+*.tmp
+
+# Documentos internos del grupo (no se suben al repo)
+PLAN-puntos-3-4-5.md
+taller-final.md
+
+# Ojo: las capturas de taller-final/evidencias/*.png SÍ se suben (el taller las exige).
