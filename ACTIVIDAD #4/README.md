@@ -13,7 +13,7 @@ Entrega: sábado 21 de noviembre de 2026, 23:59 (hora de Colombia).
 | Integrante | Usuario de git | Usuario de LeetCode | Ejercicios |
 | --- | --- | --- | --- |
 | Sebastián López | `Sebaslzs` | `Hotson_555` | 743, 1584, 72 |
-| Brayan | _(usuario)_ | _(usuario)_ | _(pendiente)_ |
+| Brayan Enríquez | `brayan` | `4o9kOABPgJ` | 215, 179 |
 | Miguel | _(usuario)_ | _(usuario)_ | _(pendiente)_ |
 
 ## Resumen
@@ -49,27 +49,28 @@ ACTIVIDAD #4/
 
 ## 215. Kth Largest Element in an Array
 
-_(pendiente)_
-
 Enlace: <https://leetcode.com/problems/kth-largest-element-in-an-array/>  
-Autor:  
-Código:  
-Familia: heap  
-Idea:  
-Complejidad:
+Autor:  Brayan Enríquez (git `brayan`, LeetCode `4o9kOABPgJ`)  
+Código: [`kth-largest/solution.py`](kth-largest/solution.py) 
+Familia: Heap  
+Idea: Se implementó un Min Heap de tamaño k. Durante el recorrido del arreglo se conservan únicamente los k elementos más grandes encontrados hasta el momento. Cuando el heap aún no tiene k elementos, los valores se insertan normalmente. Si ya está lleno, solo se reemplaza la raíz cuando aparece un número mayor. Al finalizar, la raíz del heap corresponde al k-ésimo elemento más grande del arreglo.
+Complejidad: Tiempo O(n log k) y espacio O(k).
+
+![Accepted — Kth Largest](evidencias/kth-largest-accepted.png)
 
 ---
 
 ## 179. Largest Number
 
-_(pendiente)_
-
 Enlace: <https://leetcode.com/problems/largest-number/>  
-Autor:  
-Código:  
-Familia: ordenamiento (clave por concatenación)  
-Idea:  
-Complejidad:
+Autor:  Brayan Enríquez (git `brayan`, LeetCode `4o9kOABPgJ`)
+Código: [`largest-number/solution.py`](largest-number/solution.py) 
+Familia: Ordenamiento (clave por concatenación)  
+Idea: El criterio de ordenamiento no se basa en el valor numérico de cada elemento, sino en cuál combinación produce el número más grande al concatenarse. Para dos valores a y b, se compara ab con ba; si ab es mayor, entonces a debe ubicarse antes que b. Con este criterio se construye un heap y posteriormente se aplica Heap Sort para obtener el orden final que forme el número más grande posible.
+Complejidad: Tiempo O(n log n · k) donde k es la longitud promedio de los números convertidos a cadena. Espacio O(n) para almacenar la representación en texto de los elementos.
+
+![Accepted — Largest Number](evidencias/largest-number-accepted.png)
+
 
 ---
 
