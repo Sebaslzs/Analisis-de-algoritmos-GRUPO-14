@@ -14,34 +14,34 @@ Entrega: sábado 21 de noviembre de 2026, 23:59 (hora de Colombia).
 | --- | --- | --- | --- |
 | Sebastián López | `Sebaslzs` | `Hotson_555` | 743, 1584, 72 |
 | Brayan Enríquez | `brayan` | `4o9kOABPgJ` | 215, 179 |
-| Miguel | _(usuario)_ | _(usuario)_ | _(pendiente)_ |
+| Miguel Garcia | `MiguelG413` | `MiguelG0413` | 300, 134, 79 |
 
 ## Resumen
 
 | # | Problema | Familia | Autor | Tiempo | Espacio | Estado |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | [215. Kth Largest Element in an Array](#215-kth-largest-element-in-an-array) | Heap | _(pendiente)_ | `O(n log k)` | `O(k)` | ⏳ |
-| 2 | [179. Largest Number](#179-largest-number) | Ordenamiento (clave) | _(pendiente)_ | `O(n log n)` | `O(n)` | ⏳ |
+| 1 | [215. Kth Largest Element in an Array](#215-kth-largest-element-in-an-array) | Heap | Brayan Enríquez | `O(n log k)` | `O(k)` | ✅ |
+| 2 | [179. Largest Number](#179-largest-number) | Ordenamiento (clave) |Brayan Enríquez | `O(n log n)` | `O(n)` | ✅ |
 | 3 | [743. Network Delay Time](#743-network-delay-time) | Grafos (Dijkstra) | Sebastián López | `O((n + m) log n)` | `O(n + m)` | ✅ |
 | 4 | [1584. Min Cost to Connect All Points](#1584-min-cost-to-connect-all-points) | Grafos (MST · Prim) | Sebastián López | `O(n²)` | `O(n)` | ✅ |
 | 5 | [72. Edit Distance](#72-edit-distance) | Programación dinámica | Sebastián López | `Θ(n·m)` | `Θ(n·m)` | ✅ |
-| 6 | [300. Longest Increasing Subsequence](#300-longest-increasing-subsequence) | Programación dinámica | _(pendiente)_ | `Θ(n²)` | `Θ(n)` | ⏳ |
-| 7 | [134. Gas Station](#134-gas-station) | Greedy | _(pendiente)_ | `Θ(n)` | `Θ(1)` | ⏳ |
-| 8 | [79. Word Search](#79-word-search) | Backtracking | _(pendiente)_ | `O(m·n·4^L)` | `O(L)` | ⏳ |
+| 6 | [300. Longest Increasing Subsequence](#300-longest-increasing-subsequence) | Programación dinámica | Miguel Garcia | `Θ(n²)` | `Θ(n)` | ✅ |
+| 7 | [134. Gas Station](#134-gas-station) | Greedy | Miguel Garcia | `Θ(n)` | `Θ(1)` | ✅ |
+| 8 | [79. Word Search](#79-word-search) | Backtracking | Miguel Garcia | `O(m·n·4^L)` | `O(L)` | ✅ |
 
 ## Estructura
 
 ```text
 ACTIVIDAD #4/
 ├── README.md
-├── kth-largest/                       ← 1 · heap            (pendiente)
-├── largest-number/                    ← 2 · clave de orden  (pendiente)
+├── kth-largest/                       ← 1 · heap            
+├── largest-number/                    ← 2 · clave de orden  
 ├── network-delay-time/                ← 3 · Dijkstra
 ├── min-cost-to-connect-all-points/    ← 4 · MST (Prim)
 ├── edit-distance/                     ← 5 · DP
-├── longest-increasing-subsequence/    ← 6 · DP              (pendiente)
-├── gas-station/                       ← 7 · greedy          (pendiente)
-├── word-search/                       ← 8 · backtracking    (pendiente)
+├── longest-increasing-subsequence/    ← 6 · DP              
+├── gas-station/                       ← 7 · greedy          
+├── word-search/                       ← 8 · backtracking    
 └── evidencias/                        ← capturas *-accepted.png
 ```
 
@@ -63,7 +63,7 @@ Complejidad: Tiempo O(n log k) y espacio O(k).
 ## 179. Largest Number
 
 Enlace: <https://leetcode.com/problems/largest-number/>  
-Autor:  Brayan Enríquez (git `brayan`, LeetCode `4o9kOABPgJ`)
+Autor:  Brayan Enríquez (git `brayan`, LeetCode `4o9kOABPgJ`)  
 Código: [`largest-number/solution.py`](largest-number/solution.py) 
 Familia: Ordenamiento (clave por concatenación)  
 Idea: El criterio de ordenamiento no se basa en el valor numérico de cada elemento, sino en cuál combinación produce el número más grande al concatenarse. Para dos valores a y b, se compara ab con ba; si ab es mayor, entonces a debe ubicarse antes que b. Con este criterio se construye un heap y posteriormente se aplica Heap Sort para obtener el orden final que forme el número más grande posible.
@@ -119,37 +119,42 @@ Complejidad: con `n = word1.length` y `m = word2.length`, tiempo **`Θ(n·m)`**,
 
 ## 300. Longest Increasing Subsequence
 
-_(pendiente)_
-
 Enlace: <https://leetcode.com/problems/longest-increasing-subsequence/>  
-Autor:  
-Código:  
+Autor: Miguel Garcia (git `MiguelG413`, LeetCode `MiguelG0413`)   
+Código: [`longest-increasing-subsequence/solution.py`](longest-increasing-subsequence/solution.py)  
 Familia: programación dinámica  
-Estado / base / recurrencia:  
-Complejidad:
+Estado: `dp[i]` es la longitud de la subsecuencia creciente más larga cuyo último elemento es `nums[i]`.  
+Base: `dp[i] = 1`, porque cada elemento forma por sí mismo una subsecuencia creciente de longitud uno.  
+Recurrencia: para todo `j < i` con `nums[j] < nums[i]`, `dp[i] = max(dp[i], dp[j] + 1)`. La respuesta es el máximo de `dp`.  
+Complejidad: tiempo **`Θ(n²)`** y espacio **`Θ(n)`**, con `n = len(nums)`.
+
+![Accepted — Edit Distance](evidencias/longest-increasing-subsequence-accepted.png)
+
 
 ---
 
 ## 134. Gas Station
 
-_(pendiente)_
-
 Enlace: <https://leetcode.com/problems/gas-station/>  
-Autor:  
-Código:  
+Autor:  Miguel Garcia (git `MiguelG413`, LeetCode `MiguelG0413`)   
+Código: [`gas-station/solution.py`](gas-station/solution.py)  
 Familia: greedy  
-Criterio (qué tramo se descarta y por qué no se vuelve atrás):  
-Complejidad:
+Criterio: se acumula el saldo `gas[i] - cost[i]`. Si el saldo desde la posible salida se vuelve negativo, esa salida y todos los puntos anteriores no pueden ser válidos, por lo que se descarta el tramo completo y se prueba `i + 1`. Al finalizar, si el saldo total también es negativo, no existe una solución circular.
+Complejidad: tiempo **`Θ(n)`** y espacio **`Θ(1)`**.
+
+![Accepted — Edit Distance](evidencias/gas-station-accepted.png)
 
 ---
 
 ## 79. Word Search
 
-_(pendiente)_
-
 Enlace: <https://leetcode.com/problems/word-search/>  
-Autor:  
-Código:  
+Autor: Miguel Garcia (git `MiguelG413`, LeetCode `MiguelG0413`)   
+Código: [`word-search/solution.py`](word-search/solution.py)  
 Familia: backtracking  
-Qué se elige / qué se deshace:  
-Complejidad:
+Qué se elige: desde cada coincidencia se intenta visitar una celda vecina que contenga la siguiente letra, sin repetir posiciones dentro del mismo camino.  
+Qué se deshace: al finalizar una rama se restaura el carácter original de la celda marcada para que pueda utilizarse en otro camino.  
+Complejidad: con `m` filas, `n` columnas y `L = len(word)`, tiempo **`O(m·n·4^L)`** y espacio **`O(L)`** por la profundidad máxima de recursión.
+
+![Accepted — Edit Distance](evidencias/word-search-accepted.png)
+
